@@ -5,3 +5,4 @@ var middle = function() {
 }
 middle();
 
+console.log(b);
