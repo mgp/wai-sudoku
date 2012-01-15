@@ -2,13 +2,28 @@ function fillCurrentCell(number)
 {
     var curRowIndex=getRowCoordinate(cell);
     var curColIndex=getColCoordinate(cell);
-    //var isValidCell=ValidCell(curRowIndex,curColIndex);//bool to get if its a valid cell
-    var isValidCell=1;
+    var isValidCell=canFillPoint(curRowIndex,curColIndex);//bool to get if its a valid cell
+    //var isValidCell=1;
+
+    var isRightSolution=1;
     if(isValidCell==1)
     {
         //if its not a part of the sudoku actual grid
-        document.getElementById("speechoutput").innerHTML = "Filled "+ number;
-        document.getElementById(cell).innerHTML = number;
+        isRightSolution=checkInput(curRowIndex,curColIndex,number);
+        if(isRightSolution==1)
+        {
+            document.getElementById("speechoutput").innerHTML = "Filled "+ number;
+            document.getElementById(cell).innerHTML = number;
+            document.getElementById(cell).style.color = 'blue';
+        }
+        else
+        {
+            document.getElementById("speechoutput").innerHTML = "Wrong Answer!";
+        }
+    }
+    else if(isValidCell==0)//its overwriting an already written number
+    {
+        document.getElementById("speechoutput").innerHTML = "Cannot overwrite a grid number" ;
     }
     
 }
@@ -23,8 +38,9 @@ function getColCoordinate(cellnumber)
 {
     var col=cellnumber.charAt(1);
 
-    var firstCol='0';
+    var firstCol='1';
     var curColIndex=col.charCodeAt(0)-firstCol.charCodeAt(0);
+
     return curColIndex;
 }
 function getRowCharacter(number)

@@ -347,7 +347,6 @@ function getValue(point){
 	//returns the value at the point
 	return board[point.row][point.col];
 }
-
 function getValues(points){
 	//returns the values in the array of points
 	var vals = new Array;
@@ -364,7 +363,7 @@ function whereDemNumbersAtYo(points, number){
 	var subpoints = find(points, number);
 	var zones = new Array;
 	for(i = 0; i < points.length; i++){
-		zones.push(points)
+		zones.push(points);
 	}
 }
 
@@ -417,62 +416,6 @@ function updateBoard(row, col, number){
 		return false;
 	}
 }	
-
-function bestOptions(n){
-	//outputs the n-th most filled zone to the console 
-    options = findBestOptions();
-    console.log("The best option number ",n, " is",options[0][n-1] , options[1][n-1], "with ", options[2][n-1], "missing");
-    return [options[0][n-1],options[1][n-1],options[2][n-1]];
-}
-
-function bestRowOptions(n){
-	//outputs the n-th most filled row to the console 
-    options = findLeastMissingRows();
-    console.log("The best option number ",n, " is row " , options[0][n-1], "with ", options[1][n-1], "missing");
-    return [options[0][n-1],options[1][n-1]];
-}
-
-function bestColOptions(n){
-	//outputs the n-th most filled row to the console 
-    options = findLeastMissingCols();
-    console.log("The best option number ",n, " is column " , options[0][n-1], "with ", options[1][n-1], "missing");
-    return [options[0][n-1],options[1][n-1]];
-}
-
-function bestBoxOptions(n){
-	//outputs the n-th most filled row to the console 
-    options = findLeastMissingBoxes();
-    console.log("The best option number ",n, " is box " , options[0][n-1], "with ", options[1][n-1], "missing");
-    return [options[0][n-1],options[1][n-1]];
-}
-
-function select(type, num){
-	//returns an array of points in the given zone
-    if (type=="row"){
-        sel = getRow(num);
-    }
-    else if (type=="col"){
-        sel = getCol(num);
-    }
-    else if (type=="box"){
-        sel = getCol(num);
-    }
-    console.log(type, num, "selected");
-    return sel;
-}
-
-function goTo(i,j){
-	//returns a point a singleton array consisting of the point(i,j)
-    p = new point(i,j);
-    return [p]
-}
-
-function read(selection){
-	//returns an array of values corresponding to the selection
-	values = getValues(selection);  
-	console.log(values);
-	return values;
-}
 
 function canFillPoint(row, col){
 	//returns 1 if original board and current board are empty
