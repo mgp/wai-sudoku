@@ -501,6 +501,9 @@ function getBoardAsArray(){
 	return board;
 }
 
+function getCompletionPercent(){
+}
+
 /*
 a = findBestOptions();
 a = getBox(1)
