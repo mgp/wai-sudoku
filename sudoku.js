@@ -2,6 +2,7 @@ var boardLength = 9;
 
 //board is stored as a 9x9 array of numbers; 0 denotes blank
 var board = [[0,0,5,6,0,0,9,4,3],[3,0,0,0,4,0,0,0,0],[0,4,0,0,0,0,7,0,6],[0,7,0,0,9,4,0,0,0],[6,0,2,0,0,0,4,0,5],[0,0,0,2,6,0,0,3,0],[1,0,3,0,0,0,0,7,0],[0,0,0,0,5,0,0,0,9],[8,9,4,0,0,7,6,0,0]];
+var solvedBoard = [[7,1,5,6,8,2,9,4,3],[3,2,6,7,4,9,5,8,1],[9,4,8,5,1,3,7,2,6],[5,7,1,3,9,4,2,6,8],[6,3,2,8,7,1,4,9,5],[4,8,9,2,6,5,1,3,7],[1,5,3,9,2,6,8,7,4],[2,6,7,4,5,7,3,1,9],[8,9,4,1,3,7,6,5,2]];
 var originalBoard=board;
 
 function printArray(board){
@@ -16,57 +17,6 @@ function printBoard(){
     for(var i=0;i<board.length;i++){
         console.log(board[i]);
         }
-}
-
-function checkBoardValidity(){
-// checks if board is in a valid configuration
-// returns [validity, mistakes]
-    var valid = 1;
-    var mistakes = [];
-    
-    // cycle through all the points
-    for (var i=0;i<board.length;i++){
-        for (var j=0;j<board.length;j++){
-            
-            // the the row/col/box and value of the point
-            p = new point(i,j);
-            var val = getValue(p);
-            var row = getRow(p);
-            var col = getCol(p);
-            var box = getBox(p);
-            
-            // set board as invalid and push the point onto the mistakes array if invalid
-            if (count(row,val) > 1){
-                valid = 0;
-                mistakes.push(p);
-            }
-            else if (count(col,val) > 1){
-                valid = 0;
-                mistakes.push(p);
-            }
-            else if (count(box,val) > 1){
-                valid = 0;
-                mistakes.push(p);
-            }            
-        }
-    }
-    return valid;
-}
-
-function updateBoard(point, number){
-	//updates the board at the point to the number
-	//does not let you overwrite original values
-	//and at the moment does not let you make invalid moves
-	//returns true iff array successfully changed
-	oldNum = getValue(point)
-	
-	if(originalBoard[point.row][point.col] == 0 &){
-		board[point.row][point.col] = number;
-		return true;
-	}
-	else{
-		return false;
-	}
 }
 
 function point(row, col){
@@ -402,7 +352,56 @@ function whereDemNumbersAtYo(points, number){
 		zones.push(points)
 	}
 }
-		
+
+function checkBoardValidity(board){
+// checks if board is in a valid configuration
+// returns [validity, mistakes]
+//DOES NOT WORK
+    var valid = 1;
+    var mistakes = [];
+    
+    // cycle through all the points
+    for (var i=0;i<board.length;i++){
+        for (var j=0;j<board.length;j++){
+            
+            // the the row/col/box and value of the point
+            p = new point(i,j);
+            var val = getValue(p);
+            var row = getRow(p);
+            var col = getCol(p);
+            var box = getBox(p);
+            
+            // set board as invalid and push the point onto the mistakes array if invalid
+            if (countNum(row,val) > 1){
+                valid = 0;
+                mistakes.push(p);
+            }
+            else if (countNum(col,val) > 1){
+                valid = 0;
+                mistakes.push(p);
+            }
+            else if (countNum(box,val) > 1){
+                valid = 0;
+                mistakes.push(p);
+            }            
+        }
+    }
+    return valid;
+}
+
+function updateBoard(point, number){
+	//updates the board at the point to the number
+	//does not let you overwrite original values
+	//and at the moment does not let you make invalid moves
+	//returns true iff array successfully changed	
+	if(originalBoard[point.row][point.col] == 0 & solvedBoard[point.row][point.col] == number){
+		board[point.row][point.col] = number;
+		return true;
+	}
+	else{
+		return false;
+	}
+}	
 
 a = findBestOptions();
 a = getBox(1)
