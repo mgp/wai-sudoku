@@ -443,6 +443,36 @@ function updateBoard(row, col, number){
 	}
 }	
 
+function select(type, num){
+	//returns an array of points in the given zone
+    if (type=="row"){
+        sel = getRow(num);
+    }
+    else if (type=="col"){
+        sel = getCol(num);
+    }
+    else if (type=="box"){
+        sel = getCol(num);
+    }
+    console.log(type, num, "selected");
+    return sel;
+}
+
+
+function goTo(i,j){
+	//returns a point a singleton array consisting of the point(i,j)
+    p = new point(i,j);
+    return [p]
+}
+
+function read(selection){
+	//returns an array of values corresponding to the selection
+	values = getValues(selection);  
+	console.log(values);
+	return values;
+}
+
+
 function canFillPoint(row, col){
 	//returns 1 if original board and current board are empty
 	//returns 0 if original board is empty and current board is not 
