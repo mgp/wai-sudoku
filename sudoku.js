@@ -1,5 +1,5 @@
 function loadNextBoard(){
-	puzzleNumber = puzzleNumber+1 % boards.length;
+	puzzleNumber = (puzzleNumber+1) % boards.length;
 	board = boards[puzzleNumber];
 	solvedBoard = solvedBoards[puzzleNumber];
 	originalBoard = board;
