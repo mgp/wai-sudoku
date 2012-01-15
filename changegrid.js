@@ -12,18 +12,18 @@ function fillCurrentCell(number)
         isRightSolution=checkInput(curRowIndex,curColIndex,number);
         if(isRightSolution==1)
         {
-            document.getElementById("speechoutput").innerHTML = "Filled "+ number;
+            output("Filled "+ number);
             document.getElementById(cell).innerHTML = number;
             document.getElementById(cell).style.color = 'blue';
         }
         else
         {
-            document.getElementById("speechoutput").innerHTML = "Wrong Answer!";
+            output("Wrong Answer!");
         }
     }
     else if(isValidCell==0)//its overwriting an already written number
     {
-        document.getElementById("speechoutput").innerHTML = "Cannot overwrite a grid number" ;
+        output("Can't overwrite a grid number") ;
     }
     
 }
@@ -54,4 +54,21 @@ function getColCharacter(number)
     var firstCol='0';
     var curColChar=number+firstCol.charCodeAt(0)+1;
     return String.fromCharCode(curColChar);
+}
+function getCurrentRowIndex()
+{
+    return getRowCoordinate(cell);
+}
+function getCurrentColIndex()
+{
+    return getColCoordinate(cell);
+}
+function output(textoutput)
+{
+    document.getElementById("speechoutput").innerHTML = textoutput;
+}
+function getCurrentBoxIndex()
+{
+    var boxIndex=3*(parseInt(getCurrentRowIndex()/3)) + parseInt(getCurrentColIndex()/3) ;
+    return boxIndex;
 }
