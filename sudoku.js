@@ -1,23 +1,9 @@
-var boardLength = 9;
-
-//store sample boards in an array
-var boards = new Array;
-var solvedBoards = new Array;
-boards.push([[0,0,5,6,0,0,9,4,3],[3,0,0,0,4,0,0,0,0],[0,4,0,0,0,0,7,0,6],[0,7,0,0,9,4,0,0,0],[6,0,2,0,0,0,4,0,5],[0,0,0,2,6,0,0,3,0],[1,0,3,0,0,0,0,7,0],[0,0,0,0,5,0,0,0,9],[8,9,4,0,0,7,6,0,0]]);
-solvedBoards.push([[7,1,5,6,8,2,9,4,3],[3,2,6,7,4,9,5,8,1],[9,4,8,5,1,3,7,2,6],[5,7,1,3,9,4,2,6,8],[6,3,2,8,7,1,4,9,5],[4,8,9,2,6,5,1,3,7],[1,5,3,9,2,6,8,7,4],[2,6,7,4,5,7,3,1,9],[8,9,4,1,3,7,6,5,2]]);
-
-boards.push([[6,0,0,7,0,8,9,0,0],[1,0,0,0,3,6,7,5,0],[7,0,4,5,0,0,0,6,1],[0,2,7,0,0,0,0,4,8],[0,0,1,0,0,0,6,0,0],[8,6,0,0,0,0,2,1,0],[2,8,0,0,0,1,4,0,6],[0,7,5,6,2,0,0,0,9],[0,0,6,8,0,9,0,0,3]]);
-solvedBoards.push([[6,5,2,7,1,8,9,3,4],[1,9,8,4,3,6,7,5,2],[7,3,4,5,9,2,8,6,1],[9,2,7,1,6,5,3,4,8],[5,4,1,2,8,3,6,9,7],[8,6,3,9,4,7,2,1,5],[2,8,9,3,5,1,4,7,6],[3,7,5,6,2,4,1,8,9],[4,1,6,8,7,9,5,2,3]]);
-
-
-boards.push([[6,0,0,7,0,8,9,0,0],[1,0,0,0,3,6,7,5,0],[7,0,4,5,0,0,0,6,1],[0,2,7,0,0,0,0,4,8],[0,0,1,0,0,0,6,0,0],[8,6,0,0,0,0,2,1,0],[2,8,0,0,0,1,4,0,6],[0,7,5,6,2,0,0,0,9],[0,0,6,8,0,9,0,0,3]]);
-solvedBoards.push([[6,5,2,7,1,8,9,3,4],[1,9,8,4,3,6,7,5,2],[7,3,4,5,9,2,8,6,1],[9,2,7,1,6,5,3,4,8],[5,4,1,2,8,3,6,9,7],[8,6,3,9,4,7,2,1,5],[2,8,9,3,5,1,4,7,6],[3,7,5,6,2,4,1,8,9],[4,1,6,8,7,9,5,2,3]]);
-
-//board is stored as a 9x9 array of numbers; 0 denotes blank
-var boardChoice = 0;
-var board = boards[boardChoice];
-var solvedBoard = solvedBoards[boardChoice];
-var originalBoard=board;
+function loadNextBoard(){
+	puzzleNumber = puzzleNumber+1 % boards.length;
+	board = boards[puzzleNumber];
+	solvedBoard = solvedBoards[puzzleNumber];
+	originalBoard = board;
+}
 
 function printArray(board){
 	//prints out the input array
@@ -153,7 +139,7 @@ function contains(points, number){
 	else { return false; }
 }
 
-function sortWIndices(vec){
+function sortWIndices(vec, cmp){
 	//input: an array of things that can be compared via "<"
 	//returns: [the permutation you apply, the sorted vector]
     var data = [];
@@ -176,6 +162,18 @@ function cmp(a,b){
     return a[0]-b[0];
 }
 
+function cmpKillZeros(a,b){
+	//in some contexts 0 should be 'high' namely a row with no missing entries
+	//is not one we want to work on
+   if (a[0]==0){
+       return 1;
+   }
+   else if (b[0]==0){
+       return -1;
+   }
+   return a[0]-b[0];
+}
+
 function findLeastMissingRows(){
 	//outputs the rows ranked in order of least missing
     var counts=[];
@@ -184,7 +182,7 @@ function findLeastMissingRows(){
         var nMissing = countNum(selection,0);
         counts[row]=nMissing;
     }
-    var sorted = sortWIndices(counts);
+    var sorted = sortWIndices(counts, cmpKillZeros);
     var rows = sorted[1];
     var cts = sorted[0];
 	return [rows,cts];
@@ -198,7 +196,7 @@ function findLeastMissingCols(){
         var nMissing = countNum(selection,0);
         counts[j]=nMissing;
     }
-    var sorted = sortWIndices(counts);
+    var sorted = sortWIndices(counts, cmpKillZeros);
     var cols = sorted[1];
     var cts = sorted[0];
 	return [cols,cts];
@@ -212,10 +210,17 @@ function findLeastMissingBoxes(){
         var nMissing = countNum(selection,0);
         counts[k]=nMissing;
     }
-    var sorted = sortWIndices(counts);
+    var sorted = sortWIndices(counts, cmpKillZeros);
     var boxes = sorted[1];
     var cts = sorted[0];
 	return [boxes,cts];
+}
+
+function bestOptions(n){
+	//outputs the n-th most filled zone to the console 
+	options = findBestOptions();
+	console.log("The best option number ",n, " is",options[0][n-1] , options[1][n-1], "with ", options[2][n-1], "missing");
+	return [options[0][n-1],options[1][n-1],options[2][n-1]];
 }
 
 function getBoard(){
@@ -258,7 +263,7 @@ function findBestOptions(){
     }
     
     // sort by nMissing
-    counts.sort(cmp)
+    counts.sort(cmpKillZeros)
     
     var cts   = [];
     var types = [];
@@ -271,6 +276,27 @@ function findBestOptions(){
     }
 
     return [types,inds,cts];
+}
+
+function bestRowOptions(n){
+	//outputs the n-th most filled row to the console 
+    options = findLeastMissingRows();
+    console.log("The best option number ",n, " is row " , options[0][n-1], "with ", options[1][n-1], "missing");
+    return [options[0][n-1],options[1][n-1]];
+}
+
+function bestColOptions(n){
+	//outputs the n-th most filled row to the console 
+    options = findLeastMissingCols();
+    console.log("The best option number ",n, " is column " , options[0][n-1], "with ", options[1][n-1], "missing");
+    return [options[0][n-1],options[1][n-1]];
+}
+
+function bestBoxOptions(n){
+	//outputs the n-th most filled row to the console 
+    options = findLeastMissingBoxes();
+    console.log("The best option number ",n, " is box " , options[0][n-1], "with ", options[1][n-1], "missing");
+    return [options[0][n-1],options[1][n-1]];
 }
 
 function findMissingNumbers(points){
@@ -416,6 +442,36 @@ function updateBoard(row, col, number){
 		return false;
 	}
 }	
+
+function select(type, num){
+	//returns an array of points in the given zone
+    if (type=="row"){
+        sel = getRow(num);
+    }
+    else if (type=="col"){
+        sel = getCol(num);
+    }
+    else if (type=="box"){
+        sel = getCol(num);
+    }
+    console.log(type, num, "selected");
+    return sel;
+}
+
+
+function goTo(i,j){
+	//returns a point a singleton array consisting of the point(i,j)
+    p = new point(i,j);
+    return [p]
+}
+
+function read(selection){
+	//returns an array of values corresponding to the selection
+	values = getValues(selection);  
+	console.log(values);
+	return values;
+}
+
 
 function canFillPoint(row, col){
 	//returns 1 if original board and current board are empty
