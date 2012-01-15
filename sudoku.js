@@ -1,3 +1,13 @@
+function isValidArray(array, msg){
+	if (Object.prototype.toString.call(array) === '[object Array]') {
+		return;
+	}
+	else{
+		alert("Expected an array at function " + msg);
+		return;
+	}
+}
+
 function loadNextBoard(){
 	puzzleNumber = (puzzleNumber+1) % boards.length;
 	board = boards[puzzleNumber];
@@ -26,6 +36,7 @@ function point(row, col){
 }
 
 function printPoints(points){
+	isValidArray(points,"printPoints");
 	//prints an array of points
 	for (var i = 0; i < points.length; i++){
 		console.log([points[i].row,points[i].col]);
@@ -112,6 +123,7 @@ function isMoveValid(row,col,input){
 function find(points, number){
 	//maps an array of points "points" to a subset of it consisting of
 	//all the points it contains that are that number on the board
+	isValidArray(points,"find");
     var subpoints = new Array;
     var count = 0;
     for (var i=0;i<points.length;i++){
@@ -125,6 +137,7 @@ function find(points, number){
 }
 
 function countNum(points, number){
+	isValidArray(points,"countNum");
 	//returns how many instances of number there is in the array of points
 	//"points"
 	var myPoints = find(points, number);
@@ -134,6 +147,7 @@ function countNum(points, number){
 function contains(points, number){
 	//returns whether number is in the array of points
 	//"points"
+	isValidArray(points,"contains");
 	var numInstances = countNum(points, number);
 	if(numInstances > 0){ return true; }
 	else { return false; }
@@ -302,6 +316,7 @@ function bestBoxOptions(n){
 function findMissingNumbers(points){
 	//input: a selection of points
 	//output: what numbers are not in those points
+	isValidArray(points,"findMissingNumbers");
 	var i = 0;
 	var missingNumbers = [];
 	for(i = 1; i < board.length+1; i++){
@@ -315,6 +330,7 @@ function findMissingNumbers(points){
 function getRows(points){
 	//input: selection
 	//output: rows the selected points are in, w/o duplicates
+	isValidArray(points,"getRows");
 	var rows = new Array;
 	for(var i = 0; i < points.length; i++){
 		rows.push(point2Row(points[i]));
@@ -334,6 +350,7 @@ function getRows(points){
 function getCols(points){
 	//input: selection
 	//output: Cols the selected points are in, w/o duplicates
+	isValidArray(points,"getCols");
 	var cols = new Array;
 	for(var j = 0; j < points.length; j++){
 		cols.push(point2Col(points[j]));
@@ -353,6 +370,7 @@ function getCols(points){
 function getBoxes(points){
 	//input: selection
 	//output: boxes the selected points are in, w/o duplicates
+	isValidArray(points,"getBoxes");
 	var boxes = new Array;
 	for(var i = 0; i < points.length; i++){
 		boxes.push(point2Box(points[i]));
@@ -375,6 +393,7 @@ function getValue(point){
 }
 function getValues(points){
 	//returns the values in the array of points
+	isValidArray(points,"getValues");
 	var vals = new Array;
 	for(var i = 0; i < points.length; i++){
 		vals.push(getValue(points[i]));
@@ -385,6 +404,7 @@ function getValues(points){
 function whereDemNumbersAtYo(points, number){
 	//given an input of a selection and number
 	//returns rows/cols/boxes where the number is
+	isValidArray(points,"whereDemNumbersAtYo");
 	var i = 0;
 	var subpoints = find(points, number);
 	var zones = new Array;
@@ -468,6 +488,7 @@ function goTo(i,j){
 
 function read(selection){
 	//returns an array of values corresponding to the selection
+	isValidArray(selection,"read");
 	var values = getValues(selection);  
 	console.log(values);
 	return values;
