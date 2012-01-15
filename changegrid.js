@@ -14,7 +14,9 @@ function fillCurrentCell(number)
         {
             output("Filled "+ number);
             document.getElementById(cell).innerHTML = number;
+			
             document.getElementById(cell).style.color = 'blue';
+			updateBoard(curRowIndex,curColIndex,number);
         }
         else
         {
