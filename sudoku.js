@@ -18,14 +18,14 @@ function loadNextBoard(){
 function printArray(board){
 	//prints out the input array
     for(var i=0;i<board.length;i++){
-        console.log(board[i]);
+        //console.log(board[i]);
         }
 }
 
 function printBoard(){
 	//prints out the input array
     for(var i=0;i<board.length;i++){
-        console.log(board[i]);
+        //console.log(board[i]);
         }
 }
 
@@ -39,7 +39,7 @@ function printPoints(points){
 	isValidArray(points,"printPoints");
 	//prints an array of points
 	for (var i = 0; i < points.length; i++){
-		console.log([points[i].row,points[i].col]);
+		//console.log([points[i].row,points[i].col]);
 	}
 }
 
@@ -233,7 +233,7 @@ function findLeastMissingBoxes(){
 function bestOptions(n){
 	//outputs the n-th most filled zone to the console 
 	options = findBestOptions();
-	console.log("The best option number ",n, " is",options[0][n-1] , options[1][n-1], "with ", options[2][n-1], "missing");
+	//console.log("The best option number ",n, " is",options[0][n-1] , options[1][n-1], "with ", options[2][n-1], "missing");
 	return [options[0][n-1],options[1][n-1],options[2][n-1]];
 }
 
@@ -295,21 +295,21 @@ function findBestOptions(){
 function bestRowOptions(n){
 	//outputs the n-th most filled row to the console 
     options = findLeastMissingRows();
-    console.log("The best option number ",n, " is row " , options[0][n-1], "with ", options[1][n-1], "missing");
+    //console.log("The best option number ",n, " is row " , options[0][n-1], "with ", options[1][n-1], "missing");
     return [options[0][n-1],options[1][n-1]];
 }
 
 function bestColOptions(n){
 	//outputs the n-th most filled row to the console 
     options = findLeastMissingCols();
-    console.log("The best option number ",n, " is column " , options[0][n-1], "with ", options[1][n-1], "missing");
+    //console.log("The best option number ",n, " is column " , options[0][n-1], "with ", options[1][n-1], "missing");
     return [options[0][n-1],options[1][n-1]];
 }
 
 function bestBoxOptions(n){
 	//outputs the n-th most filled row to the console 
     options = findLeastMissingBoxes();
-    console.log("The best option number ",n, " is box " , options[0][n-1], "with ", options[1][n-1], "missing");
+    //console.log("The best option number ",n, " is box " , options[0][n-1], "with ", options[1][n-1], "missing");
     return [options[0][n-1],options[1][n-1]];
 }
 
@@ -465,7 +465,7 @@ function updateBoard(row, col, number){
 
 function select(type, num){
 	//returns an array of points in the given zone
-	var sel
+	var sel = [];
     if (type=="row"){
         sel = getRow(num);
     }
@@ -476,6 +476,7 @@ function select(type, num){
         sel = getBox(num);
     }
     //console.log(type, num, "selected");
+    isValidArray(sel,"select");
     return sel;
 }
 
@@ -490,7 +491,7 @@ function read(selection){
 	//returns an array of values corresponding to the selection
 	isValidArray(selection,"read");
 	var values = getValues(selection);  
-	console.log(values);
+	//console.log(values);
 	return values;
 }
 
@@ -533,7 +534,7 @@ console.log(findMissingNumbers(a));
 ps = selectBoard();
 //printPoints(ps);
 for(i = 0; i < ps.length; i++){
-	console.log(point2Box(ps[i]));
+	//console.log(point2Box(ps[i]));
 }
 
 a = findLeastMissingRows();
@@ -543,17 +544,17 @@ c = findLeastMissingBoxes();
 ps = getBox(1,1);
 myPs = find(ps,9);
 printPoints(myPs);
-console.log(countNum(ps, 9));
-console.log(contains(ps,9));
-console.log(contains(ps,10));
+//console.log(countNum(ps, 9));
+//console.log(contains(ps,9));
+//console.log(contains(ps,10));
 
 
 printPoints(getBox(0,1));
-console.log("hi1");
+//console.log("hi1");
 printPoints(getCol(3));
-console.log("hi1");
+//console.log("hi1");
 printPoints(getRow(3));
-console.log("hi1");
+//console.log("hi1");
 
 var p = new point(3,3);
 a = point2Box(p);
