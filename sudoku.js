@@ -1,9 +1,3 @@
-var boardLength = 9;
-
-//board is stored as a 9x9 array of numbers; 0 denotes blank
-var board = [[0,0,5,6,0,0,9,4,3],[3,0,0,0,4,0,0,0,0],[0,4,0,0,0,0,7,0,6],[0,7,0,0,9,4,0,0,0],[6,0,2,0,0,0,4,0,5],[0,0,0,2,6,0,0,3,0],[1,0,3,0,0,0,0,7,0],[0,0,0,0,5,0,0,0,9],[8,9,4,0,0,7,6,0,0]];
-var solvedBoard = [[7,1,5,6,8,2,9,4,3],[3,2,6,7,4,9,5,8,1],[9,4,8,5,1,3,7,2,6],[5,7,1,3,9,4,2,6,8],[6,3,2,8,7,1,4,9,5],[4,8,9,2,6,5,1,3,7],[1,5,3,9,2,6,8,7,4],[2,6,7,4,5,7,3,1,9],[8,9,4,1,3,7,6,5,2]];
-var originalBoard=board;
 
 function printArray(board){
 	//prints out the input array
@@ -349,7 +343,7 @@ function whereDemNumbersAtYo(points, number){
 	var subpoints = find(points, number);
 	var zones = new Array;
 	for(i = 0; i < points.length; i++){
-		zones.push(points)
+		zones.push(points);
 	}
 }
 
@@ -407,7 +401,7 @@ function canFillPoint(row, col){
 	//returns 1 if original board and current board are empty
 	//returns 0 if original board is empty and current board is not 
 	//returns 0 if original board is full
-	if(originalBoard[row][col] == 0 & board[row][col] == 0){){
+	if(originalBoard[row][col] == 0 & board[row][col] == 0){
 		return 1;
 	}
 	else{
@@ -429,14 +423,14 @@ function checkInput(row, col, number){
 function getBoardAsArray(){
 	return board;
 }
-
+/*
 a = findBestOptions();
 a = getBox(1)
 console.log(findMissingNumbers(a));
 
 
 
-/*
+
 ps = selectBoard();
 //printPoints(ps);
 for(i = 0; i < ps.length; i++){
