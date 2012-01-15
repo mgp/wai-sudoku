@@ -4,8 +4,13 @@
 		var controlSwitch = false;
 		var controlSwitchRCB = "x";
 		var tCounter = 0;
-		
-                $(window).keydown(function(e) {
+               
+		 $(window).keydown(function(e) {
+		   if(checkSolved()){
+			fillGrid();
+			return true;
+		   }	
+
 		   if(controlSwitch == false){
 		      if((tCounter > 0) && (e.which == 84) && (tCounter < 9)){
 			tCounter++;
@@ -52,45 +57,69 @@
                                 break;
                         case 49:
                                 fillCurrentCell("1");
+		   		if(checkSolved())
+					output("Congratulations, you won! \n Press any key to start new game!");	
                                 break;
                         case 50:
                                 fillCurrentCell("2");
+		   		if(checkSolved())
+					output("Congratulations, you won! \n Press any key to start new game!");	
                                 break;
                         case 51:
                                 fillCurrentCell("3");
+		   		if(checkSolved())
+					output("Congratulations, you won! \n Press any key to start new game!");	
                                 break;
                         case 52:
                                 fillCurrentCell("4");
+		   		if(checkSolved())
+					output("Congratulations, you won! \n Press any key to start new game!");	
                                 break;
                         case 53:
                                 fillCurrentCell("5");
+		   		if(checkSolved())
+					output("Congratulations, you won! \n Press any key to start new game!");	
                                 break;
                         case 54:
                                 fillCurrentCell("6");
+		   		if(checkSolved())
+					output("Congratulations, you won! \n Press any key to start new game!");	
                                 break;
                         case 55:
                                 fillCurrentCell("7");
+		   		if(checkSolved())
+					output("Congratulations, you won! \n Press any key to start new game!");	
                                 break;
                         case 56:
                                 fillCurrentCell("8");
+		   		if(checkSolved())
+					output("Congratulations, you won! \n Press any key to start new game!");	
                                 break;
                         case 57:
                                 fillCurrentCell("9");
+		   		if(checkSolved())
+					output("Congratulations, you won! \n Press any key to start new game!");	
                                 break;
-
 			case 82:
 				controlSwitch = true;
 				controlSwitchRCB = 'R';
+				output("Row selected, choose an option.");
 				break;
 			case 67:
 				controlSwitch = true;
 				controlSwitchRCB = 'C';
+				output("Column selected, choose an option.");
 				break;
 			case 66:
 				controlSwitch = true;
 				controlSwitchRCB = 'B';
-				break;	
-			}
+				output("Box selected, choose an option.");
+				break;
+		//	case 83:
+		//		output("Are you sure you would like to solve the puzzle? y / n");
+		//		solve();
+		//		break;
+			}	
 		   } else if(controlSwitch == true){
 		      switch(e.which){
 	
@@ -196,7 +225,6 @@
 				break;
 			}
 			controlSwitch = false;
-		}
+		  }
 	      });
-	
 	});

@@ -537,7 +537,7 @@ function fillRandom(points){
         var rand = Math.floor(Math.random()*(blanks.length));
         p = blanks[rand];
         var correctVal = getCorrectValues([p])[0];
-        updateBoard(p,correctVal);
+        updateBoard(p.row, p.col,correctVal);
         return p;
         }
 	return 0;
