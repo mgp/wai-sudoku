@@ -445,6 +445,7 @@ function updateBoard(row, col, number){
 
 function select(type, num){
 	//returns an array of points in the given zone
+	var sel
     if (type=="row"){
         sel = getRow(num);
     }
@@ -467,7 +468,7 @@ function goTo(i,j){
 
 function read(selection){
 	//returns an array of values corresponding to the selection
-	values = getValues(selection);  
+	var values = getValues(selection);  
 	console.log(values);
 	return values;
 }
