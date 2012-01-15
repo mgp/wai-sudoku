@@ -113,13 +113,6 @@ function point2Row(point){ return point.row; }
 
 function point2Col(point){ return point.col; }
 
-function isMoveValid(row,col,input){
-	//given a row and column and new number being added there
-	//checks whether the input is a legal move
-	sameRow = getRow(row)
-	sameCol
-}
-
 function find(points, number){
 	//maps an array of points "points" to a subset of it consisting of
 	//all the points it contains that are that number on the board
@@ -156,6 +149,7 @@ function contains(points, number){
 function sortWIndices(vec, cmp){
 	//input: an array of things that can be compared via "<"
 	//returns: [the permutation you apply, the sorted vector]
+	isValidArray(vec,"sortWIndices");
     var data = [];
     for (var i=0;i<vec.length;i++){
         data[i]=[vec[i],i];
@@ -232,7 +226,7 @@ function findLeastMissingBoxes(){
 
 function bestOptions(n){
 	//outputs the n-th most filled zone to the console 
-	options = findBestOptions();
+	var options = findBestOptions();
 	//console.log("The best option number ",n, " is",options[0][n-1] , options[1][n-1], "with ", options[2][n-1], "missing");
 	return [options[0][n-1],options[1][n-1],options[2][n-1]];
 }
@@ -294,21 +288,21 @@ function findBestOptions(){
 
 function bestRowOptions(n){
 	//outputs the n-th most filled row to the console 
-    options = findLeastMissingRows();
+    var options = findLeastMissingRows();
     //console.log("The best option number ",n, " is row " , options[0][n-1], "with ", options[1][n-1], "missing");
     return [options[0][n-1],options[1][n-1]];
 }
 
 function bestColOptions(n){
 	//outputs the n-th most filled row to the console 
-    options = findLeastMissingCols();
+    var options = findLeastMissingCols();
     //console.log("The best option number ",n, " is column " , options[0][n-1], "with ", options[1][n-1], "missing");
     return [options[0][n-1],options[1][n-1]];
 }
 
 function bestBoxOptions(n){
 	//outputs the n-th most filled row to the console 
-    options = findLeastMissingBoxes();
+    var options = findLeastMissingBoxes();
     //console.log("The best option number ",n, " is box " , options[0][n-1], "with ", options[1][n-1], "missing");
     return [options[0][n-1],options[1][n-1]];
 }
@@ -399,18 +393,6 @@ function getValues(points){
 		vals.push(getValue(points[i]));
 	}
 	return vals;
-}
-
-function whereDemNumbersAtYo(points, number){
-	//given an input of a selection and number
-	//returns rows/cols/boxes where the number is
-	isValidArray(points,"whereDemNumbersAtYo");
-	var i = 0;
-	var subpoints = find(points, number);
-	var zones = new Array;
-	for(i = 0; i < points.length; i++){
-		zones.push(points);
-	}
 }
 
 function checkBoardValidity(board){
@@ -523,7 +505,50 @@ function getBoardAsArray(){
 	return board;
 }
 
-function getCompletionPercent(){
+function getCorrectValues(points){
+	// returns an array of the correct values
+	// in: array of points
+	// out: array of integers corresponding to the correct values
+    var values = [];
+    for (var i=0;i<points.length;i++){
+        var p = points[i];
+        var row = point2Row(p);
+        var col = point2Col(p);
+        values[i] = solvedBoard[row][col];
+    }
+    return values;
+}
+
+function checkSolved(){
+	// checks if the board is solved 
+	// returns true/false
+    var missing = countNum(getBoard(),0);
+    return (missing==0);
+}
+
+function fillRandom(points){
+	// solves a random point out of the selection
+	// in: array of points
+	//out: the changed point
+	//returns false if failed to change point (if selection is full)
+    var blanks = find(points,0);
+    var p
+    if (blanks.length>0){
+        var rand = Math.floor(Math.random()*(blanks.length));
+        p = blanks[rand];
+        var correctVal = getCorrectValues([p])[0];
+        updateBoard(p,correctVal);
+        return p;
+        }
+	return 0;
+}
+
+// solves the sudoku puzzle
+function solve(){
+    var nMissing = countNum(getBoard(),0);
+    for (var i=0; i<nMissing; i++){
+        fillRandom(getBoard());
+    }
 }
 
 /*
