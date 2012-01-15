@@ -15,29 +15,11 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
         <script type="text/javascript" src="tablefill.js"></script>
         <script type="text/javascript" src="movecell.js"></script>
-        <script type="text/javascript">
-	    $(function() {
-		$(window).keydown(function(e) {
-		   switch(e.which){
-			case 37:
-				move("left");
-				break;
-			case 38:
-				move("up");
-				break;
-			case 39:
-				move("right");
-				break;
-			case 40:
-				move("down");
-				break;
-			default:
-				/* some other command */
-		   }
-		});
-	    });
-    </script>
+        <script type="text/javascript" src="jinput.js"></script>
+
+
     </head>
+
     <body>
         <input type="button" value="New Puzzle!" id="makepuzzle" onClick='fillGrid();'>
                <table border="1" width="500" align="center" rules="groups">
