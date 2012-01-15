@@ -1,11 +1,22 @@
+$(document).ready(function() {
+    cell='a1';
+    origgridnum=[[0,0,0,0,0,0,0,0,0],
+                 [0,2,0,0,0,0,0,0,0],
+                 [0,0,0,0,0,0,0,3,0],
+                 [0,0,0,0,1,0,0,0,0],
+                 [0,0,0,0,0,0,0,0,0],
+                 [0,0,0,0,0,0,0,0,0],
+                 [0,8,0,0,2,0,0,0,0],
+                 [0,0,0,0,0,0,0,0,0],
+                 [0,0,0,0,0,0,0,0,2]];
+
+});
 
             function move(movt)
             {
-                var cell=document.getElementById("cellnumber").innerHTML;
-
+               
                 var row=cell.charAt(0);
                 var col=cell.charAt(1);
-                //document.getElementById("speechoutput").innerHTML = row + col;
                 var newRownum;
                 var newRowChar;
                 var newColnum;
@@ -63,13 +74,17 @@
                 if(colr==0)
                 {
                     //console.log('yeahhh');
-                    document.getElementById(cell).style.color = 'black';
+                    document.getElementById(cell).style.backgroundColor = "white";
+                    
 
                 }
                 else if(colr==1)
                 {
-                    document.getElementById(cell).style.color = 'red';
-                    document.getElementById("speechoutput").innerHTML = num;
+                    document.getElementById(cell).style.backgroundColor = "red";
+                    if(num=='')
+                    {
+                        document.getElementById("speechoutput").innerHTML = "blank";
+                    }
                 }
 
             }
@@ -84,7 +99,7 @@
                 {
                     color(cellold,0);
                     color(cellnew,1);
-                    document.getElementById("cellnumber").innerHTML = cellnew;
+                    cell=cellnew;
 
                 }
 
