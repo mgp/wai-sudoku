@@ -18,11 +18,15 @@
             
             function move(movt)
             {
+                var cell=document.getElementById("cellnumber").innerHTML;
+                
                 var row=cell.charAt(0);
-                var cell=document.getElementById("cellnumber").innerHTML.value;
                 var col=cell.charAt(1);
+                //document.getElementById("speechoutput").innerHTML = row + col;
                 var newRownum;
                 var newRowChar;
+                var newColnum;
+                var newColChar;
                 var cellnew="beep";
 
                 if(movt=="up")
@@ -38,7 +42,7 @@
                 }
                 else if(movt=="down")
                 {
-                     if(row!='i') //cant go above
+                     if(row!='i') //cant go below
                      {
                         newRow=row.charCodeAt(0);
                         newRow=newRow+1;
@@ -48,18 +52,22 @@
                 }
                 else if(movt=="right")
                 {
-                     if(col!=8) //cant go above
+                     if(col!='9')
                      {
-                        col=col+1;
-                        cellnew=row+col;
+                        newCol=col.charCodeAt(0);
+                        newCol=newCol+1;
+                        newColChar=String.fromCharCode(newCol);
+                        cellnew=row+newColChar;
                      }
                 }
                 else if(movt=="left")
                 {
-                    if(col!=0) //cant go above
+                    if(col!=1)
                      {
-                        col=col-1;
-                        cellnew=row+col;
+                        newCol=col.charCodeAt(0);
+                        newCol=newCol-1;
+                        newColChar=String.fromCharCode(newCol);
+                        cellnew=row+newColChar;
                      }
                 }
 
@@ -68,28 +76,29 @@
             }
             function color(cell,colr)
             {
-                var num=document.getElementById(cell).innerHTML.value;
-                if(colr==1)
+                var num=document.getElementById(cell).innerHTML;
+                if(colr==0)
                 {
-                    document.getElementById(cell).innerHTML = "<font color="red">num</font>";
+                    document.getElementById(cell).innerHTML = "<font color=\"yellow\">"+num+"</font>";
+                }
+                else if(colr==1)
+                {
+                    document.getElementById(cell).innerHTML = "<font color=\"red\">"+num+"</font>";
                     document.getElementById("speechoutput").innerHTML = num;
                 }
-                else
-                {
-                    document.getElementById(cell).innerHTML = "<font color="black">num</font>";
-                }
+                
             }
             function output(cellold,cellnew)
             {
                 if(cellnew=="beep")
                 {
-                    document.getElementById(cell).innerHTML = "Beep";
+                    document.getElementById("speechoutput").innerHTML = "Beep";
                 }
                 else
                 {
                     color(cellold,0);
                     color(cellnew,1);
-
+                    document.getElementById("cellnumber").innerHTML = cellnew;
                     
                 }
             }
@@ -222,7 +231,7 @@
         <br><b align="center">Output : </b>
         <br>
         <i id="speechoutput" align="center">...</i>
-        <font color="black" id="cellnumber">a1</font>
+        <br><font color="black"><div id="cellnumber">a1</div></font>
         <input type="button" value="up" id="makepuzzle" onClick='move("up");'>
         <input type="button" value="down" id="makepuzzle" onClick='move("down");'>
         <input type="button" value="right" id="makepuzzle" onClick='move("right");'>
