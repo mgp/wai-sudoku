@@ -153,7 +153,7 @@ function contains(points, number){
 	else { return false; }
 }
 
-function sortWIndices(vec){
+function sortWIndices(vec, cmp){
 	//input: an array of things that can be compared via "<"
 	//returns: [the permutation you apply, the sorted vector]
     var data = [];
@@ -176,6 +176,18 @@ function cmp(a,b){
     return a[0]-b[0];
 }
 
+function cmpKillZeros(a,b){
+	//in some contexts 0 should be 'high' namely a row with no missing entries
+	//is not one we want to work on
+   if (a[0]==0){
+       return 1;
+   }
+   else if (b[0]==0){
+       return -1;
+   }
+   return a[0]-b[0];
+}
+
 function findLeastMissingRows(){
 	//outputs the rows ranked in order of least missing
     var counts=[];
@@ -184,7 +196,7 @@ function findLeastMissingRows(){
         var nMissing = countNum(selection,0);
         counts[row]=nMissing;
     }
-    var sorted = sortWIndices(counts);
+    var sorted = sortWIndices(counts, cmpKillZeros);
     var rows = sorted[1];
     var cts = sorted[0];
 	return [rows,cts];
@@ -198,7 +210,7 @@ function findLeastMissingCols(){
         var nMissing = countNum(selection,0);
         counts[j]=nMissing;
     }
-    var sorted = sortWIndices(counts);
+    var sorted = sortWIndices(counts, cmpKillZeros);
     var cols = sorted[1];
     var cts = sorted[0];
 	return [cols,cts];
@@ -212,10 +224,17 @@ function findLeastMissingBoxes(){
         var nMissing = countNum(selection,0);
         counts[k]=nMissing;
     }
-    var sorted = sortWIndices(counts);
+    var sorted = sortWIndices(counts, cmpKillZeros);
     var boxes = sorted[1];
     var cts = sorted[0];
 	return [boxes,cts];
+}
+
+function bestOptions(n){
+	//outputs the n-th most filled zone to the console 
+	options = findBestOptions();
+	console.log("The best option number ",n, " is",options[0][n-1] , options[1][n-1], "with ", options[2][n-1], "missing");
+	return [options[0][n-1],options[1][n-1],options[2][n-1]];
 }
 
 function getBoard(){
@@ -258,7 +277,7 @@ function findBestOptions(){
     }
     
     // sort by nMissing
-    counts.sort(cmp)
+    counts.sort(cmpKillZeros)
     
     var cts   = [];
     var types = [];
@@ -271,6 +290,27 @@ function findBestOptions(){
     }
 
     return [types,inds,cts];
+}
+
+function bestRowOptions(n){
+	//outputs the n-th most filled row to the console 
+    options = findLeastMissingRows();
+    console.log("The best option number ",n, " is row " , options[0][n-1], "with ", options[1][n-1], "missing");
+    return [options[0][n-1],options[1][n-1]];
+}
+
+function bestColOptions(n){
+	//outputs the n-th most filled row to the console 
+    options = findLeastMissingCols();
+    console.log("The best option number ",n, " is column " , options[0][n-1], "with ", options[1][n-1], "missing");
+    return [options[0][n-1],options[1][n-1]];
+}
+
+function bestBoxOptions(n){
+	//outputs the n-th most filled row to the console 
+    options = findLeastMissingBoxes();
+    console.log("The best option number ",n, " is box " , options[0][n-1], "with ", options[1][n-1], "missing");
+    return [options[0][n-1],options[1][n-1]];
 }
 
 function findMissingNumbers(points){
