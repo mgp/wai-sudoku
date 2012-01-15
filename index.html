@@ -14,65 +14,28 @@
         </style>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
         <script type="text/javascript" src="tablefill.js"></script>
+        <script type="text/javascript" src="movecell.js"></script>
         <script type="text/javascript">
 	    $(function() {
 		$(window).keydown(function(e) {
 		   switch(e.which){
 			case 37:
 				move("left");
-				alert(e.which);
 				break;
 			case 38:
 				move("up");
-				alert(e.which);
 				break;
 			case 39:
 				move("right");
-				alert(e.which);
 				break;
 			case 40:
 				move("down");
-				alert(e.which);
 				break;
 			default:
-				alert(e);
 				/* some other command */
 		   }
 		});
-		
-		function move(cell,movt)
-      	 	{
-			var row=cell.charAt(0);
-			var col=cell.charAt(1);
-			if(movt=="up")
-			{
-			     moveonerow(row,-1);
-			}
-			else if(movt=="down")
-			{
-			     moveonerow(row,-1);
-			}
-			else if(movt=="right")
-			{
-			    
-			}
-			else if(movt=="left")
-			{
-			}
-	   	 }
-	    function color(cell,colr)
-	    {
-		var num=document.getElementById(cell).innerHTML.value;
-		if(colr==1)
-		{
-		    document.getElementById(cell).innerHTML = '<font color="red">num</font>';
-		}
-		else
-		{
-		    document.getElementById(cell).innerHTML = '<font color="black">num</font>';
-		}
-	    }
-	   });
+	    });
     </script>
     </head>
     <body>
@@ -202,7 +165,6 @@
         <br><b align="center">Output : </b>
         <br>
         <i id="speechoutput" align="center">...</i>
-        
-        
+      	<div id="cellnumber">a1</div>  
     </body>
 </html>
