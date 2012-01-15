@@ -6,21 +6,31 @@
 		var tCounter = 0;
 		
                 $(window).keydown(function(e) {
-		   if((controlSwitch == false)
-		      if((tCounter > 0) && (e.which == 84)){
+		   if(controlSwitch == false){
+		      if((tCounter > 0) && (e.which == 84) && (tCounter < 9)){
 			tCounter++;
 			switch(controlSwitchRCB){
-				case R:	
-					output("Next best row option is " + bestRowOptions(tCounter)[0] + ".");
-					tcounter++;
+				case 'R':	
+					output("Next best row option is " + (bestRowOptions(tCounter)[0] + 1) + ".");
 					break;
-				case C:
-					output("Next best column option is " + bestColumnOptions(tCounter)[0] + ".");
-					tcounter++;
+				case 'C':
+					output("Next best column option is " + (bestColOptions(tCounter)[0] + 1) + ".");
 					break;
-				case B:
-					output("Next best box option is " + bestBoxOptions(tCounter)[0] + ".");
-					tcounter++;
+				case 'B':
+					output("Next best box option is " + (bestBoxOptions(tCounter)[0] + 1) + ".");
+					break;
+			}
+		      } else if(tCounter == 9) {
+			tCounter = 1;
+			switch(controlSwitchRCB){
+				case 'R':	
+					output("Starting over, the best row option is " + (bestRowOptions(tCounter)[0] + 1) + ".");
+					break;
+				case 'C':
+					output("Starting over, the best column option is " + (bestColOptions(tCounter)[0] + 1) + ".");
+					break;
+				case 'B':
+					output("Starting over, the best box option is " + (bestBoxOptions(tCounter)[0] + 1) + ".");
 					break;
 			}
 		      } else {
@@ -70,20 +80,18 @@
 
 			case 82:
 				controlSwitch = true;
-				controlSwitchRCB = R;
+				controlSwitchRCB = 'R';
 				break;
 			case 67:
 				controlSwitch = true;
-				controlSwitchRCB = C;
+				controlSwitchRCB = 'C';
 				break;
 			case 66:
 				controlSwitch = true;
-				controlSwitchRCB = B;
+				controlSwitchRCB = 'B';
 				break;	
 			}
-		      )
-		      
-		   if((controlSwitch == true)
+		   } else if(controlSwitch == true){
 		      switch(e.which){
 	
                    	case 49:
@@ -96,95 +104,99 @@
 			case 56:
 			case 57:
                                 switch(controlSwitchRCB){
-					case R: 
-						if(contains(select("row", getCurrentRowIndex())))
-							output("Yes, row " + getCurrentRowIndex() + 1 + " contains a " + (e.which - 48) + ".");
+					case 'R': 
+						if(contains(select("row", getCurrentRowIndex()), e.which - 48))
+							output("Yes, row " + (getCurrentRowIndex() + 1) + " contains a " + (e.which - 48) + ".");
 						else
-							output("No, row " + getCurrentRowIndex() + 1 + " does not contain a " + (e.which - 48) + ".");
+							output("No, row " + (getCurrentRowIndex() + 1) + " does not contain a " + (e.which - 48) + ".");
 						break;
-					case C:
-						if(contains(select("column", getCurrentColumnIndex())))
-							output("Yes, column " + getCurrentColumnIndex() + 1 + " contains a " + (e.which - 48) + ".");
+					case 'C':
+						if(contains(select("col", getCurrentColIndex()), e.which - 48))
+							output("Yes, column " + (getCurrentColIndex() + 1) + " contains a " + (e.which - 48) + ".");
 						else
-							output("No, column " + getCurrentColumnIndex() + 1 + " does not contain a " + (e.which - 48) + ".");
+							output("No, column " + (getCurrentColIndex() + 1) + " does not contain a " + (e.which - 48) + ".");
 						break;
-					case B:
-						if(contains(select("box", getCurrentBoxIndex())))
-							output("Yes, box " + getCurrentBoxIndex() + 1 + " contains a " + (e.which - 48) + ".");
+					case 'B':
+						if(contains(select("box", getCurrentBoxIndex()), e.which - 48))
+							output("Yes, box " + (getCurrentBoxIndex() + 1) + " contains a " + (e.which - 48) + ".");
 						else
-							output("No, box " + getCurrentBoxIndex() + 1 + " does not contain a " + (e.which - 48) + ".");
+							output("No, box " + (getCurrentBoxIndex() + 1) + " does not contain a " + (e.which - 48) + ".");
 						break;
+				}
 				break;
-
+				
 			case 82:
                                 switch(controlSwitchRCB){
-					case R:
+					case 'R':
 						var results = read(select("row", getCurrentRowIndex()));
-						var outputString = "Row " + getCurrentRowIndex() + 1 + " contains ";
+						var outputString = "Row " + (getCurrentRowIndex() + 1) + " contains ";
 						for(var i = 0; i<9; i++)
 							outputString += results[i] + " ";
 						output(outputString);
 						break;   
-					case C:
-						var results = read(select("column", getCurrentColumnIndex()));
-						var outputString = "Column " + getCurrentColumnIndex() + 1 + " contains ";
+					case 'C':
+						var results = read(select("col", getCurrentColIndex()));
+						var outputString = "Column " + (getCurrentColIndex() + 1) + " contains ";
 						for(var i = 0; i<9; i++)
 							outputString += results[i] + " ";
 						output(outputString);
 						break;   
-					case B:
+					case 'B':
 						var results = read(select("box", getCurrentBoxIndex()));
-						var outputString = "Box " + getCurrentBoxIndex() + 1 + " contains ";
+						var outputString = "Box " + (getCurrentBoxIndex() + 1) + " contains ";
 						for(var i = 0; i<9; i++)
 							outputString += results[i] + " "
 						output(outputString);
 						break;
+				}
 				break;  
  
 			case 77:
                                 switch(controlSwitchRCB){
-					case R:
+					case 'R':
 						var results = findMissingNumbers(select("row", getCurrentRowIndex()))
-						var outputString = "Row " + getCurrentRowIndex() + 1 + " is missing ";
-						for(var i = 0; i<results.length(); i++)
+						var outputString = "Row " + (getCurrentRowIndex() + 1) + " is missing ";
+						for(var i = 0; i<results.length; i++)
 							outputString += results[i] + " ";
 						output(outputString);
 						break;   
-					case C:
-						var results = findMissingNumbers(select("column", getCurrentColumnIndex()));
-						var outputString = "Column " + getCurrentColumnIndex() + 1 + " is missing ";
-						for(var i = 0; i<results.length(); i++)
+					case 'C':
+						var results = findMissingNumbers(select("col", getCurrentColIndex()));
+						var outputString = "Column " + (getCurrentColIndex() + 1) + " is missing ";
+						for(var i = 0; i<results.length; i++)
 							outputString += results[i] + " ";
 						output(outputString);
 						break;   
-					case B:
+					case 'B':
 						var results = findMissingNumbers(select("box", getCurrentBoxIndex()));
-						var outputString = "Box " + getCurrentBoxIndex() + 1 + " is missing ";
-						for(var i = 0; i<results.length(); i++)
+						var outputString = "Box " + (getCurrentBoxIndex() + 1) + " is missing ";
+						for(var i = 0; i<results.length; i++)
 							outputString += results[i] + " ";
 						output(outputString);
 						break;
+				}
 				break;  
 							
 			case 84:
                                 switch(controlSwitchRCB){
-					case R:	
-						output("Best row option is " + bestRowOptions(1)[0] + ".");
-						tcounter++;
+					case 'R':	
+						output("Best row option is " + (bestRowOptions(1)[0] + 1) + ".");
+						tCounter++;
 						break;
-					case C:
-						output("Best column option is " + bestColumnOptions(1)[0] + ".");
-						tcounter++;
+					case 'C':
+						output("Best column option is " + (bestColOptions(1)[0] + 1) + ".");
+						tCounter++;
 						break;
-					case B:
-						output("Best box option is " + bestBoxOptions(1)[0] + ".");
-						tcounter++;
+					case 'B':
+						output("Best box option is " + (bestBoxOptions(1)[0] + 1) + ".");
+						tCounter++;
 						break;
 				
+				}
 				break;
-
+			}
 			controlSwitch = false;
-			
-		   });
+		}
+	      });
 	
-		});
+	});
