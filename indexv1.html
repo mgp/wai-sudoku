@@ -79,17 +79,20 @@
                 var num=document.getElementById(cell).innerHTML;
                 if(colr==0)
                 {
-                    document.getElementById(cell).innerHTML = "<font color=\"yellow\">"+num+"</font>";
+                    //console.log('yeahhh');
+                    document.getElementById(cell).style.color = 'black';
+                    
                 }
                 else if(colr==1)
                 {
-                    document.getElementById(cell).innerHTML = "<font color=\"red\">"+num+"</font>";
+                    document.getElementById(cell).style.color = 'red';
                     document.getElementById("speechoutput").innerHTML = num;
                 }
                 
             }
             function output(cellold,cellnew)
             {
+
                 if(cellnew=="beep")
                 {
                     document.getElementById("speechoutput").innerHTML = "Beep";
@@ -101,6 +104,7 @@
                     document.getElementById("cellnumber").innerHTML = cellnew;
                     
                 }
+                
             }
         </script>
     </head>
