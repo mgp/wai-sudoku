@@ -1,6 +1,7 @@
 function fillGrid()
             {
-                gridnum=origgridnum;
+                loadNextBoard();
+                gridnum=board;
                 
                 var i=0,j=0;
                 var row;
