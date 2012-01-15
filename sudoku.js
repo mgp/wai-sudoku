@@ -10,7 +10,7 @@ function isValidArray(array, msg){
 
 function loadNextBoard(){
 	puzzleNumber = (puzzleNumber+1) % boards.length;
-	board = boards[puzzleNumber];
+	board = boards[puzzleNumber].slice(0);
 	solvedBoard = solvedBoards[puzzleNumber];
 	originalBoard = board;
 }

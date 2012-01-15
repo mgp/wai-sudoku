@@ -18,8 +18,8 @@ $(document).ready(function() {
 	
 	boards.push([[7,5,6,3,0,0,9,0,4],[9,8,2,0,4,6,0,7,0],[0,0,4,2,0,0,6,8,0],[0,2,8,1,0,4,3,0,0],[4,0,7,6,0,8,5,0,1],[1,6,9,7,3,5,0,4,0],[0,0,0,9,5,7,8,3,2],[8,9,0,4,1,2,0,5,6],[2,7,0,0,0,3,4,1,9]]);
 	solvedBoards.push([[7,5,6,3,8,1,9,2,4],[9,8,2,5,4,6,1,7,3],[3,1,4,2,7,9,6,8,5],[5,2,8,1,9,4,3,6,7],[4,3,7,6,2,8,5,9,1],[1,6,9,7,3,5,2,4,8],[6,4,1,9,5,7,8,3,2],[8,9,3,4,1,2,7,5,6],[2,7,5,8,6,3,4,1,9]]);
-	board=boards[0];
-	solvedBoard=solvedBoards[0];
+	board=boards[0].slice(0); //slice makes it copy by value
+	solvedBoard=solvedBoards[0]; //copy by reference fine here
 	originalBoard=board;
 
 	puzzleNumber = 0;
