@@ -426,6 +426,10 @@ function checkInput(row, col, number){
 	}
 }
 
+function getBoardAsArray(){
+	return board;
+}
+
 a = findBestOptions();
 a = getBox(1)
 console.log(findMissingNumbers(a));
