@@ -1,8 +1,22 @@
 var boardLength = 9;
 
+//store sample boards in an array
+var boards = new Array;
+var solvedBoards = new Array;
+boards.push([[0,0,5,6,0,0,9,4,3],[3,0,0,0,4,0,0,0,0],[0,4,0,0,0,0,7,0,6],[0,7,0,0,9,4,0,0,0],[6,0,2,0,0,0,4,0,5],[0,0,0,2,6,0,0,3,0],[1,0,3,0,0,0,0,7,0],[0,0,0,0,5,0,0,0,9],[8,9,4,0,0,7,6,0,0]]);
+solvedBoards.push([[7,1,5,6,8,2,9,4,3],[3,2,6,7,4,9,5,8,1],[9,4,8,5,1,3,7,2,6],[5,7,1,3,9,4,2,6,8],[6,3,2,8,7,1,4,9,5],[4,8,9,2,6,5,1,3,7],[1,5,3,9,2,6,8,7,4],[2,6,7,4,5,7,3,1,9],[8,9,4,1,3,7,6,5,2]]);
+
+boards.push([[6,0,0,7,0,8,9,0,0],[1,0,0,0,3,6,7,5,0],[7,0,4,5,0,0,0,6,1],[0,2,7,0,0,0,0,4,8],[0,0,1,0,0,0,6,0,0],[8,6,0,0,0,0,2,1,0],[2,8,0,0,0,1,4,0,6],[0,7,5,6,2,0,0,0,9],[0,0,6,8,0,9,0,0,3]]);
+solvedBoards.push([[6,5,2,7,1,8,9,3,4],[1,9,8,4,3,6,7,5,2],[7,3,4,5,9,2,8,6,1],[9,2,7,1,6,5,3,4,8],[5,4,1,2,8,3,6,9,7],[8,6,3,9,4,7,2,1,5],[2,8,9,3,5,1,4,7,6],[3,7,5,6,2,4,1,8,9],[4,1,6,8,7,9,5,2,3]]);
+
+
+boards.push([[6,0,0,7,0,8,9,0,0],[1,0,0,0,3,6,7,5,0],[7,0,4,5,0,0,0,6,1],[0,2,7,0,0,0,0,4,8],[0,0,1,0,0,0,6,0,0],[8,6,0,0,0,0,2,1,0],[2,8,0,0,0,1,4,0,6],[0,7,5,6,2,0,0,0,9],[0,0,6,8,0,9,0,0,3]]);
+solvedBoards.push([[6,5,2,7,1,8,9,3,4],[1,9,8,4,3,6,7,5,2],[7,3,4,5,9,2,8,6,1],[9,2,7,1,6,5,3,4,8],[5,4,1,2,8,3,6,9,7],[8,6,3,9,4,7,2,1,5],[2,8,9,3,5,1,4,7,6],[3,7,5,6,2,4,1,8,9],[4,1,6,8,7,9,5,2,3]]);
+
 //board is stored as a 9x9 array of numbers; 0 denotes blank
-var board = [[0,0,5,6,0,0,9,4,3],[3,0,0,0,4,0,0,0,0],[0,4,0,0,0,0,7,0,6],[0,7,0,0,9,4,0,0,0],[6,0,2,0,0,0,4,0,5],[0,0,0,2,6,0,0,3,0],[1,0,3,0,0,0,0,7,0],[0,0,0,0,5,0,0,0,9],[8,9,4,0,0,7,6,0,0]];
-var solvedBoard = [[7,1,5,6,8,2,9,4,3],[3,2,6,7,4,9,5,8,1],[9,4,8,5,1,3,7,2,6],[5,7,1,3,9,4,2,6,8],[6,3,2,8,7,1,4,9,5],[4,8,9,2,6,5,1,3,7],[1,5,3,9,2,6,8,7,4],[2,6,7,4,5,7,3,1,9],[8,9,4,1,3,7,6,5,2]];
+var boardChoice = 0;
+var board = boards[boardChoice];
+var solvedBoard = solvedBoards[boardChoice];
 var originalBoard=board;
 
 function printArray(board){
@@ -173,7 +187,7 @@ function findLeastMissingRows(){
     var sorted = sortWIndices(counts);
     var rows = sorted[1];
     var cts = sorted[0];
-	return [rows,cts,sorted];
+	return [rows,cts];
 }
 
 function findLeastMissingCols(){
@@ -187,7 +201,7 @@ function findLeastMissingCols(){
     var sorted = sortWIndices(counts);
     var cols = sorted[1];
     var cts = sorted[0];
-	return [cols,cts,sorted];
+	return [cols,cts];
 }
 
 function findLeastMissingBoxes(){
@@ -201,7 +215,7 @@ function findLeastMissingBoxes(){
     var sorted = sortWIndices(counts);
     var boxes = sorted[1];
     var cts = sorted[0];
-	return [boxes,cts,sorted];
+	return [boxes,cts];
 }
 
 function getBoard(){
@@ -277,34 +291,34 @@ function getRows(points){
 	//output: rows the selected points are in, w/o duplicates
 	var rows = new Array;
 	for(var i = 0; i < points.length; i++){
-		rows.push([point2Row(points[i]),'row']);
+		rows.push(point2Row(points[i]));
 	}
-	rows.sort(cmp);
+	rows.sort();
 	var curr=-1;
 	var cleanRows=[];
 	for (var i=0; i<rows.length; i++){
-		if (rows[i][0]!=curr){
+		if (rows[i]!=curr){
 			cleanRows.push(rows[i]);
-			curr=rows[i][0];
+			curr=rows[i];
 		}
 	}
 	return cleanRows;
 }
 
-function getCols(pojnts){
+function getCols(points){
 	//input: selection
 	//output: Cols the selected points are in, w/o duplicates
 	var cols = new Array;
-	for(var j = 0; j < pojnts.length; j++){
-		cols.push([point2Col(pojnts[j]),'col']);
+	for(var j = 0; j < points.length; j++){
+		cols.push(point2Col(points[j]));
 	}
-	cols.sort(cmp);
+	cols.sort();
 	var curr=-1;
 	var cleanCols=[];
 	for (var j=0; j<cols.length; j++){
-		if (cols[j][0]!=curr){
+		if (cols[j]!=curr){
 			cleanCols.push(cols[j]);
-			curr=cols[j][0];
+			curr=cols[j];
 		}
 	}
 	return cleanCols;
@@ -315,15 +329,15 @@ function getBoxes(points){
 	//output: boxes the selected points are in, w/o duplicates
 	var boxes = new Array;
 	for(var i = 0; i < points.length; i++){
-		boxes.push([point2Box(points[i]),'box']);
+		boxes.push(point2Box(points[i]));
 	}
-	boxes.sort(cmp);
+	boxes.sort();
 	var curr=-1;
 	var cleanBoxes=[];
 	for (var i=0; i<boxes.length; i++){
-		if (boxes[i][0]!=curr){
+		if (boxes[i]!=curr){
 			cleanBoxes.push(boxes[i]);
-			curr=boxes[i][0];
+			curr=boxes[i];
 		}
 	}
 	return cleanBoxes;
@@ -390,13 +404,13 @@ function checkBoardValidity(board){
     return valid;
 }
 
-function updateBoard(point, number){
+function updateBoard(row, col, number){
 	//updates the board at the point to the number
 	//does not let you overwrite original values
 	//and at the moment does not let you make invalid moves
 	//returns true iff array successfully changed	
-	if(originalBoard[point.row][point.col] == 0 & solvedBoard[point.row][point.col] == number){
-		board[point.row][point.col] = number;
+	if(originalBoard[row][col] == 0 & solvedBoard[row][col] == number){
+		board[row][col] = number;
 		return true;
 	}
 	else{
@@ -409,6 +423,27 @@ function bestOptions(n){
     options = findBestOptions();
     console.log("The best option number ",n, " is",options[0][n-1] , options[1][n-1], "with ", options[2][n-1], "missing");
     return [options[0][n-1],options[1][n-1],options[2][n-1]];
+}
+
+function bestRowOptions(n){
+	//outputs the n-th most filled row to the console 
+    options = findLeastMissingRows();
+    console.log("The best option number ",n, " is row " , options[0][n-1], "with ", options[1][n-1], "missing");
+    return [options[0][n-1],options[1][n-1]];
+}
+
+function bestColOptions(n){
+	//outputs the n-th most filled row to the console 
+    options = findLeastMissingCols();
+    console.log("The best option number ",n, " is column " , options[0][n-1], "with ", options[1][n-1], "missing");
+    return [options[0][n-1],options[1][n-1]];
+}
+
+function bestBoxOptions(n){
+	//outputs the n-th most filled row to the console 
+    options = findLeastMissingBoxes();
+    console.log("The best option number ",n, " is box " , options[0][n-1], "with ", options[1][n-1], "missing");
+    return [options[0][n-1],options[1][n-1]];
 }
 
 function select(type, num){
@@ -466,13 +501,11 @@ function getBoardAsArray(){
 	return board;
 }
 
+/*
 a = findBestOptions();
 a = getBox(1)
 console.log(findMissingNumbers(a));
 
-
-
-/*
 ps = selectBoard();
 //printPoints(ps);
 for(i = 0; i < ps.length; i++){
