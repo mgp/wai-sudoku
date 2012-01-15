@@ -8,9 +8,21 @@ function isValidArray(array, msg){
 	}
 }
 
+function copyBoard(board){
+   var newBoard = [];
+   for (var i=0; i<9;i++){
+       var row = [];
+       for (var j=0; j<9;j++){
+           row[j]=board[i][j];
+       }
+       newBoard[i] = row;
+   }
+   return newBoard;
+}
+ 
 function loadNextBoard(){
 	puzzleNumber = (puzzleNumber+1) % boards.length;
-	board = boards[puzzleNumber];
+	board = copyBoard(boards[puzzleNumber]);
 	solvedBoard = solvedBoards[puzzleNumber];
 	originalBoard = board;
 }
@@ -18,14 +30,14 @@ function loadNextBoard(){
 function printArray(board){
 	//prints out the input array
     for(var i=0;i<board.length;i++){
-        //console.log(board[i]);
+        console.log(board[i]);
         }
 }
 
 function printBoard(){
 	//prints out the input array
     for(var i=0;i<board.length;i++){
-        //console.log(board[i]);
+        console.log(board[i]);
         }
 }
 
@@ -395,7 +407,7 @@ function getValues(points){
 	return vals;
 }
 
-function checkBoardValidity(board){
+function checkBoardValidity(){
 // checks if board is in a valid configuration
 // returns [validity, mistakes]
 //DOES NOT WORK
@@ -409,10 +421,11 @@ function checkBoardValidity(board){
             // the the row/col/box and value of the point
             p = new point(i,j);
             var val = getValue(p);
-            var row = getRow(p);
-            var col = getCol(p);
-            var box = getBox(p);
+            var row = getRow(point2Row(p));
+            var col = getCol(point2Col(p));
+            var box = getBox(point2Box(p));
             
+            if (val != 0){
             // set board as invalid and push the point onto the mistakes array if invalid
             if (countNum(row,val) > 1){
                 valid = 0;
@@ -425,7 +438,10 @@ function checkBoardValidity(board){
             else if (countNum(box,val) > 1){
                 valid = 0;
                 mistakes.push(p);
-            }            
+            }
+                
+            } 
+                        
         }
     }
     return valid;
