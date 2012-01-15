@@ -453,9 +453,9 @@ function select(type, num){
         sel = getCol(num);
     }
     else if (type=="box"){
-        sel = getCol(num);
+        sel = getBox(num);
     }
-    console.log(type, num, "selected");
+    //console.log(type, num, "selected");
     return sel;
 }
 
