@@ -32,5 +32,5 @@ function fillGrid()
                 
                 color(cell,1);
 
-
+		$("#inputbox").focus();
             }

@@ -67,7 +67,7 @@ function getCurrentColIndex()
 }
 function output(textoutput)
 {
-    document.getElementById("speechoutput").innerHTML = textoutput;
+    $("#inputbox").val(textoutput);
 }
 function getCurrentBoxIndex()
 {

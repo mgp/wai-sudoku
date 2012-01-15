@@ -1,11 +1,15 @@
            
 
 	 $(function() {
+
+	 	fillGrid();
+
+
 		var controlSwitch = false;
 		var controlSwitchRCB = "x";
 		var tCounter = 0;
                
-		 $(window).keydown(function(e) {
+		 $("#inputbox").keydown(function(e) {
 		   if(checkSolved()){
 			fillGrid();
 			return true;
@@ -43,16 +47,16 @@
 		      }
 		      switch(e.which){
 				
-                   	case 37:
+                   	case 65:
                                 move("left");
                                 break;
-                        case 38:
+                        case 87:
                                 move("up");
                                 break;
-                        case 39:
+                        case 68:
                                 move("right");
                                 break;
-                        case 40:
+                        case 83:
                                 move("down");
                                 break;
                         case 49:
@@ -226,5 +230,10 @@
 			}
 			controlSwitch = false;
 		  }
+		  return false;
+	      });
+
+	      $("#inputbox").blur(function() { 
+	      	setTimeout(function() { $("#inputbox").focus(); }, 5);
 	      });
 	});
