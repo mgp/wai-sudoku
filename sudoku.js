@@ -403,6 +403,29 @@ function updateBoard(point, number){
 	}
 }	
 
+function canFillPoint(row, col){
+	//returns 1 if original board and current board are empty
+	//returns 0 if original board is empty and current board is not 
+	//returns 0 if original board is full
+	if(originalBoard[row][col] == 0 & board[row][col] == 0){){
+		return 1;
+	}
+	else{
+		return 0;
+	}
+}
+
+function checkInput(row, col, number){
+	//returns 1 if desired input is correct
+	//0 if not
+	if(solvedBoard[row][col] == number){
+		return 1;
+	}
+	else{
+		return 0;
+	}
+}
+
 a = findBestOptions();
 a = getBox(1)
 console.log(findMissingNumbers(a));
