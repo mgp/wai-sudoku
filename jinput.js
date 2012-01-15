@@ -44,6 +44,27 @@
                                 break;
 
                    }    
-                
+
                 });
+
             });
+
+	$(function() {
+		var controlSwitch == false;
+		var controlSwitchR == false;
+		var controlSwitchC == false:
+		var controlSwitchB == false;
+
+		$(window).keydown(function(cs){
+		   if((controlSwitch == false)
+			switch(cs.which){
+			   case 82:
+				controlSwitchR == true;
+				break;
+			   case 67:
+				controlSwitchC == true;
+				break;
+			   case 66:	
+
+			}
+		    )
