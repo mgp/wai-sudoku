@@ -16,31 +16,31 @@
                                 move("down");
                                 break;
                         case 49:
-                                alert('1');
+                                fillCurrentCell(1);
                                 break;
                         case 50:
-                                alert("2");
+                                fillCurrentCell(2);
                                 break;
                         case 51:
-                                alert("3");
+                                fillCurrentCell("3");
                                 break;
                         case 52:
-                                alert("4");
+                                fillCurrentCell("4");
                                 break;
                         case 53:
-                                alert("5");
+                                fillCurrentCell("5");
                                 break;
                         case 54:
-                                alert("6");
+                                fillCurrentCell("6");
                                 break;
                         case 55:
-                                alert("7");
+                                fillCurrentCell("7");
                                 break;
                         case 56:
-                                alert("8");
+                                fillCurrentCell("8");
                                 break;
                         case 57:
-                                alert("9");
+                                fillCurrentCell("9");
                                 break;
 
                    }    

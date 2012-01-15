@@ -12,14 +12,13 @@
         border: 2px solid black;
         }
         </style>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
         <script type="text/javascript" src="tablefill.js"></script>
+        <script type="text/javascript" src="jquery.js"></script>
         <script type="text/javascript" src="movecell.js"></script>
+        <script type="text/javascript" src="changegrid.js"></script>
         <script type="text/javascript" src="jinput.js"></script>
 
-
     </head>
-
     <body>
         <input type="button" value="New Puzzle!" id="makepuzzle" onClick='fillGrid();'>
                <table border="1" width="500" align="center" rules="groups">
@@ -143,10 +142,16 @@
                    </tbody>
                 <tbody>
         </table>
-        <input type="textbox" id="inputbox" align="center">
+        <div align="center">
         <br><b align="center">Output : </b>
         <br>
         <i id="speechoutput" align="center">...</i>
-      	<div id="cellnumber">a1</div>  
+        <!--input type="button" value="up" id="makepuzzle" onClick='move("up");'>
+        <input type="button" value="down" id="makepuzzle" onClick='move("down");'>
+        <input type="button" value="right" id="makepuzzle" onClick='move("right");'>
+        <input type="button" value="left" id="makepuzzle" onClick='move("left");'-->
+        </div>
+        <br><br>
+        <div id="doing"></div>
     </body>
 </html>
