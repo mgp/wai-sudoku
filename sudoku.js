@@ -1,4 +1,5 @@
 function isValidArray(array, msg){
+	//checks if array is in fact an array.  if not alerts user
 	if (Object.prototype.toString.call(array) === '[object Array]') {
 		return;
 	}
@@ -9,6 +10,7 @@ function isValidArray(array, msg){
 }
 
 function copyBoard(board){
+	//copys a 9x9 array by value.  we had trouble making it work for arbitrary arrays
    var newBoard = [];
    for (var i=0; i<9;i++){
        var row = [];
@@ -21,6 +23,8 @@ function copyBoard(board){
 }
  
 function loadNextBoard(){
+	//cycles through the currently selected board
+	//boards are pre-loaded in globalVars.js
 	puzzleNumber = (puzzleNumber+1) % boards.length;
 	board = copyBoard(boards[puzzleNumber]);
 	solvedBoard = solvedBoards[puzzleNumber];
@@ -29,6 +33,7 @@ function loadNextBoard(){
 
 function printArray(board){
 	//prints out the input array
+	//DEPRECATED but useful for debugging
     for(var i=0;i<board.length;i++){
         console.log(board[i]);
         }
@@ -36,6 +41,7 @@ function printArray(board){
 
 function printBoard(){
 	//prints out the input array
+	//DEPRECATED but useful for debugging
     for(var i=0;i<board.length;i++){
         console.log(board[i]);
         }
@@ -48,8 +54,8 @@ function point(row, col){
 }
 
 function printPoints(points){
-	isValidArray(points,"printPoints");
 	//prints an array of points
+	isValidArray(points,"printPoints");
 	for (var i = 0; i < points.length; i++){
 		//console.log([points[i].row,points[i].col]);
 	}
@@ -100,6 +106,7 @@ function getCol(col){
 }
 
 function point2Box(point){
+	//given a point tells you which box, 0:8, it's in
 	var box = 0;
 	if(point.row < 3){
 		if(point.col < 3){ box = 0; }
@@ -121,8 +128,10 @@ function point2Box(point){
 	return box;
 }
 
+//given a point tells you which row, 0:8 it's in
 function point2Row(point){ return point.row; }
 
+//given a point tells you which column, 0:8 it's in
 function point2Col(point){ return point.col; }
 
 function find(points, number){
@@ -142,16 +151,15 @@ function find(points, number){
 }
 
 function countNum(points, number){
-	isValidArray(points,"countNum");
 	//returns how many instances of number there is in the array of points
 	//"points"
+	isValidArray(points,"countNum");
 	var myPoints = find(points, number);
 	return myPoints.length;
 }
 
 function contains(points, number){
 	//returns whether number is in the array of points
-	//"points"
 	isValidArray(points,"contains");
 	var numInstances = countNum(points, number);
 	if(numInstances > 0){ return true; }
@@ -195,7 +203,7 @@ function cmpKillZeros(a,b){
 }
 
 function findLeastMissingRows(){
-	//outputs the rows ranked in order of least missing
+	//outputs the rows ranked in order of least missing, along with the number of missing things
     var counts=[];
     for (var row=0;row<board.length;row++){
         var selection = getRow(row);
@@ -209,7 +217,7 @@ function findLeastMissingRows(){
 }
 
 function findLeastMissingCols(){
-	//outputs the rows ranked in order of least missing
+	//outputs the rows ranked in order of least missing, along with the number of missing things
     var counts=[];
     for (var j=0;j<board.length;j++){
         var selection = getCol(j);
@@ -223,7 +231,7 @@ function findLeastMissingCols(){
 }
 
 function findLeastMissingBoxes(){
-	//outputs the rows ranked in order of least missing
+	//outputs the rows ranked in order of least missing, along with the number of missing things
     var counts=[];
     for (var k=0;k<board.length;k++){
         var selection = getBox(k);
@@ -256,11 +264,11 @@ function getBoard(){
 }
 
 function findBestOptions(){
-// FIX: RENAME THE FUNCTION
 // outputs [types,inds,cts], each in order from best to words
 // types = 'row' / 'col' / 'box'
 // inds = 0:8
 // cts = how many missing
+//CURRENTLY NOT USED
     var counts = new Array;
     var i=0;
     for (i=0;i<board.length;i++){
@@ -336,6 +344,7 @@ function findMissingNumbers(points){
 function getRows(points){
 	//input: selection
 	//output: rows the selected points are in, w/o duplicates
+	//NOT CURRENTLY USED
 	isValidArray(points,"getRows");
 	var rows = new Array;
 	for(var i = 0; i < points.length; i++){
@@ -356,6 +365,7 @@ function getRows(points){
 function getCols(points){
 	//input: selection
 	//output: Cols the selected points are in, w/o duplicates
+	//NOT CURRENTLY USED
 	isValidArray(points,"getCols");
 	var cols = new Array;
 	for(var j = 0; j < points.length; j++){
@@ -376,6 +386,7 @@ function getCols(points){
 function getBoxes(points){
 	//input: selection
 	//output: boxes the selected points are in, w/o duplicates
+	//NOT CURRENTLY USED
 	isValidArray(points,"getBoxes");
 	var boxes = new Array;
 	for(var i = 0; i < points.length; i++){
@@ -398,7 +409,7 @@ function getValue(point){
 	return board[point.row][point.col];
 }
 function getValues(points){
-	//returns the values in the array of points
+	//returns the values in the array of points as an array
 	isValidArray(points,"getValues");
 	var vals = new Array;
 	for(var i = 0; i < points.length; i++){
@@ -410,7 +421,7 @@ function getValues(points){
 function checkBoardValidity(){
 // checks if board is in a valid configuration
 // returns [validity, mistakes]
-//DOES NOT WORK
+//NOT CURRENTLY USED
     var valid = 1;
     var mistakes = [];
     
@@ -462,7 +473,7 @@ function updateBoard(row, col, number){
 }	
 
 function select(type, num){
-	//returns an array of points in the given zone
+	//returns an array of points in the given zone.  input = "row/"col"/"box", zone number
 	var sel = [];
     if (type=="row"){
         sel = getRow(num);
@@ -478,7 +489,6 @@ function select(type, num){
     return sel;
 }
 
-
 function goTo(i,j){
 	//returns a point a singleton array consisting of the point(i,j)
     p = new point(i,j);
@@ -492,7 +502,6 @@ function read(selection){
 	//console.log(values);
 	return values;
 }
-
 
 function canFillPoint(row, col){
 	//returns 1 if original board and current board are empty
@@ -547,6 +556,7 @@ function fillRandom(points){
 	// in: array of points
 	//out: the changed point
 	//returns false if failed to change point (if selection is full)
+	//NOT CURRENTLY USED
     var blanks = find(points,0);
     var p
     if (blanks.length>0){
@@ -559,44 +569,12 @@ function fillRandom(points){
 	return 0;
 }
 
-// solves the sudoku puzzle
+//solves the sudoku puzzle
+//NOT CURRENTLY USED
+
 function solve(){
     var nMissing = countNum(getBoard(),0);
     for (var i=0; i<nMissing; i++){
         fillRandom(getBoard());
     }
 }
-
-/*
-a = findBestOptions();
-a = getBox(1)
-console.log(findMissingNumbers(a));
-
-ps = selectBoard();
-//printPoints(ps);
-for(i = 0; i < ps.length; i++){
-	//console.log(point2Box(ps[i]));
-}
-
-a = findLeastMissingRows();
-b = findLeastMissingCols();
-c = findLeastMissingBoxes();
-
-ps = getBox(1,1);
-myPs = find(ps,9);
-printPoints(myPs);
-//console.log(countNum(ps, 9));
-//console.log(contains(ps,9));
-//console.log(contains(ps,10));
-
-
-printPoints(getBox(0,1));
-//console.log("hi1");
-printPoints(getCol(3));
-//console.log("hi1");
-printPoints(getRow(3));
-//console.log("hi1");
-
-var p = new point(3,3);
-a = point2Box(p);
-*/
