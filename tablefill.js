@@ -23,6 +23,7 @@ function fillGrid()
                         else
                         {
                             document.getElementById(idobject).innerHTML = gridnum[i][j];
+							document.getElementById(cell).style.color = 'black';
                         }
                         j=j+1;
                     }
