@@ -22,8 +22,12 @@ function fillGrid()
                         }
                         else
                         {
-                            document.getElementById(idobject).innerHTML = gridnum[i][j];
-							document.getElementById(cell).style.color = 'black';
+                            var cellNode = document.getElementById(idobject);
+                            cellNode.innerHTML = gridnum[i][j];
+                            $(cellNode).addClass('filled');
+
+
+//							document.getElementById(cell).style.color = 'black';
                         }
                         j=j+1;
                     }
