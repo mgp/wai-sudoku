@@ -21,12 +21,51 @@ $(function () {
                 tCounter++;
                 switch (controlSwitchRCB) {
                     case 'R':   //toggle rows
+                        var bestRowOp = Sudoku.bestRowOptions(tCounter)[0];   //moves cursor to next best option
+
+                        var rowArray = Sudoku.getRow(bestRowOp);
+                        for (var i = 0; i < rowArray.length; i++)
+                            if (Sudoku.getValue(rowArray[i]) === 0) {
+
+                                var newRow = String.fromCharCode(97 + rowArray[i].row);
+                                var newCol = rowArray[i].col + 1;
+                                var newcell = newRow + newCol;
+
+                                MoveCell.moveBetweenCells(cell, newcell);
+                                break;
+                            }
                         ChangeGrid.output("Next best row option is " + (Sudoku.bestRowOptions(tCounter)[0] + 1) + ".");
                         break;
                     case 'C':   //toggle columns
+                        var bestColOp = Sudoku.bestColOptions(tCounter)[0];       //moves cursor to next best option
+
+                        var colArray = Sudoku.getCol(bestColOp);
+                        for (var i = 0; i < colArray.length; i++)
+                            if (Sudoku.getValue(colArray[i]) === 0) {
+
+                                var newRow = String.fromCharCode(97 + colArray[i].row);
+                                var newCol = colArray[i].col + 1;
+                                var newcell = newRow + newCol;
+
+                                MoveCell.moveBetweenCells(cell, newcell);
+                                break;
+                            }
                         ChangeGrid.output("Next best column option is " + (Sudoku.bestColOptions(tCounter)[0] + 1) + ".");
                         break;
                     case 'B':   //toggle boxes
+                        var bestBoxOp = Sudoku.bestBoxOptions(tCounter)[0];      //moves cursor to next best option
+
+                        var boxArray = Sudoku.getBox(bestBoxOp);
+                        for (var i = 0; i < boxArray.length; i++)
+                            if (Sudoku.getValue(boxArray[i]) === 0) {
+
+                                var newRow = String.fromCharCode(97 + boxArray[i].row);
+                                var newCol = boxArray[i].col + 1;
+                                var newcell = newRow + newCol;
+
+                                MoveCell.moveBetweenCells(cell, newcell);
+                                break;
+                            }
                         ChangeGrid.output("Next best box option is " + (Sudoku.bestBoxOptions(tCounter)[0] + 1) + ".");
                         break;
                 }
@@ -34,12 +73,51 @@ $(function () {
                 tCounter = 1;
                 switch (controlSwitchRCB) {
                     case 'R':   //toggle rows
+                        var bestRowOp = Sudoku.bestRowOptions(tCounter)[0];   //moves cursor to next best option
+
+                        var rowArray = Sudoku.getRow(bestRowOp);
+                        for (var i = 0; i < rowArray.length; i++)
+                            if (Sudoku.getValue(rowArray[i]) === 0) {
+
+                                var newRow = String.fromCharCode(97 + rowArray[i].row);
+                                var newCol = rowArray[i].col + 1;
+                                var newcell = newRow + newCol;
+
+                                MoveCell.moveBetweenCells(cell, newcell);
+                                break;
+                            }
                         ChangeGrid.output("Starting over, the best row option is " + (Sudoku.bestRowOptions(tCounter)[0] + 1) + ".");
                         break;
                     case 'C':   //toggle columns
+                        var bestColOp = Sudoku.bestColOptions(tCounter)[0];       //moves cursor to next best option
+
+                        var colArray = Sudoku.getCol(bestColOp);
+                        for (var i = 0; i < colArray.length; i++)
+                            if (Sudoku.getValue(colArray[i]) === 0) {
+
+                                var newRow = String.fromCharCode(97 + colArray[i].row);
+                                var newCol = colArray[i].col + 1;
+                                var newcell = newRow + newCol;
+
+                                MoveCell.moveBetweenCells(cell, newcell);
+                                break;
+                            }
                         ChangeGrid.output("Starting over, the best column option is " + (Sudoku.bestColOptions(tCounter)[0] + 1) + ".");
                         break;
                     case 'B':   //toggle boxes
+                        var bestBoxOp = Sudoku.bestBoxOptions(tCounter)[0];      //moves cursor to next best option
+
+                        var boxArray = Sudoku.getBox(bestBoxOp);
+                        for (var i = 0; i < boxArray.length; i++)
+                            if (Sudoku.getValue(boxArray[i]) === 0) {
+
+                                var newRow = String.fromCharCode(97 + boxArray[i].row);
+                                var newCol = boxArray[i].col + 1;
+                                var newcell = newRow + newCol;
+
+                                MoveCell.moveBetweenCells(cell, newcell);
+                                break;
+                            }
                         ChangeGrid.output("Starting over, the best box option is " + (Sudoku.bestBoxOptions(tCounter)[0] + 1) + ".");
                         break;
                 }
@@ -242,14 +320,53 @@ $(function () {
                 case 84:    // 't' find the row, column or box missing the fewest numbers
                     switch (controlSwitchRCB) {
                         case 'R':   //row
+                            var bestRowOp = Sudoku.bestRowOptions(1)[0];   //moves cursor to next best option
+
+                            var rowArray = Sudoku.getRow(bestRowOp);
+                            for (var i = 0; i < rowArray.length; i++)
+                                if (Sudoku.getValue(rowArray[i]) === 0) {
+
+                                    var newRow = String.fromCharCode(97 + rowArray[i].row);
+                                    var newCol = rowArray[i].col + 1;
+                                    var newcell = newRow + newCol;
+
+                                    MoveCell.moveBetweenCells(cell, newcell);
+                                    break;
+                                }
                             ChangeGrid.output("Best row option is " + (Sudoku.bestRowOptions(1)[0] + 1) + ".");
                             tCounter++;
                             break;
                         case 'C':   // column
+                            var bestColOp = Sudoku.bestColOptions(1)[0];       //moves cursor to next best option
+
+                            var colArray = Sudoku.getCol(bestColOp);
+                            for (var i = 0; i < colArray.length; i++)
+                                if (Sudoku.getValue(colArray[i]) === 0) {
+
+                                    var newRow = String.fromCharCode(97 + colArray[i].row);
+                                    var newCol = colArray[i].col + 1;
+                                    var newcell = newRow + newCol;
+
+                                    MoveCell.moveBetweenCells(cell, newcell);
+                                    break;
+                                }
                             ChangeGrid.output("Best column option is " + (Sudoku.bestColOptions(1)[0] + 1) + ".");
                             tCounter++;
                             break;
                         case 'B':   // box
+                            var bestBoxOp = Sudoku.bestBoxOptions(1)[0];         //moves cursor to next best option
+
+                            var boxArray = Sudoku.getBox(bestBoxOp);
+                            for (var i = 0; i < boxArray.length; i++)
+                                if (Sudoku.getValue(boxArray[i]) === 0) {
+
+                                    var newRow = String.fromCharCode(97 + boxArray[i].row);
+                                    var newCol = boxArray[i].col + 1;
+                                    var newcell = newRow + newCol;
+
+                                    MoveCell.moveBetweenCells(cell, newcell);
+                                    break;
+                                }
                             ChangeGrid.output("Best box option is " + (Sudoku.bestBoxOptions(1)[0] + 1) + ".");
                             tCounter++;
                             break;
