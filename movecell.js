@@ -95,6 +95,7 @@ MoveCell.color = function (cell, colr){
         }
 
         if (num === "&nbsp;") {
+			ChangeGrid.output("");
             ChangeGrid.output(outstring + "blank");
         } else {
             ChangeGrid.output(outstring + num);
