@@ -11,7 +11,7 @@ $(function () {
     var hCounter = 0;
 
     $("#inputbox").keydown(function (e) {
-        if (checkSolved()) {
+        if (Sudoku.checkSolved()) {
             TableFill.fillGrid();
             return true;
         }
@@ -21,26 +21,26 @@ $(function () {
                 tCounter++;
                 switch (controlSwitchRCB) {
                     case 'R':
-                        ChangeGrid.output("Next best row option is " + (bestRowOptions(tCounter)[0] + 1) + ".");
+                        ChangeGrid.output("Next best row option is " + (Sudoku.bestRowOptions(tCounter)[0] + 1) + ".");
                         break;
                     case 'C':
-                        ChangeGrid.output("Next best column option is " + (bestColOptions(tCounter)[0] + 1) + ".");
+                        ChangeGrid.output("Next best column option is " + (Sudoku.bestColOptions(tCounter)[0] + 1) + ".");
                         break;
                     case 'B':
-                        ChangeGrid.output("Next best box option is " + (bestBoxOptions(tCounter)[0] + 1) + ".");
+                        ChangeGrid.output("Next best box option is " + (Sudoku.bestBoxOptions(tCounter)[0] + 1) + ".");
                         break;
                 }
             } else if (tCounter == 9) {
                 tCounter = 1;
                 switch (controlSwitchRCB) {
                     case 'R':
-                        ChangeGrid.output("Starting over, the best row option is " + (bestRowOptions(tCounter)[0] + 1) + ".");
+                        ChangeGrid.output("Starting over, the best row option is " + (Sudoku.bestRowOptions(tCounter)[0] + 1) + ".");
                         break;
                     case 'C':
-                        ChangeGrid.output("Starting over, the best column option is " + (bestColOptions(tCounter)[0] + 1) + ".");
+                        ChangeGrid.output("Starting over, the best column option is " + (Sudoku.bestColOptions(tCounter)[0] + 1) + ".");
                         break;
                     case 'B':
-                        ChangeGrid.output("Starting over, the best box option is " + (bestBoxOptions(tCounter)[0] + 1) + ".");
+                        ChangeGrid.output("Starting over, the best box option is " + (Sudoku.bestBoxOptions(tCounter)[0] + 1) + ".");
                         break;
                 }
             } else {
@@ -96,47 +96,47 @@ $(function () {
                     break;
                 case 49:
                     ChangeGrid.fillCurrentCell("1");
-                    if (checkSolved())
+                    if (Sudoku.checkSolved())
                         ChangeGrid.output("Congratulations, you won! \n Press any key to start new game!");
                     break;
                 case 50:
                     ChangeGrid.fillCurrentCell("2");
-                    if (checkSolved())
+                    if (Sudoku.checkSolved())
                         ChangeGrid.output("Congratulations, you won! \n Press any key to start new game!");
                     break;
                 case 51:
                     ChangeGrid.fillCurrentCell("3");
-                    if (checkSolved())
+                    if (Sudoku.checkSolved())
                         ChangeGrid.output("Congratulations, you won! \n Press any key to start new game!");
                     break;
                 case 52:
                     ChangeGrid.fillCurrentCell("4");
-                    if (checkSolved())
+                    if (Sudoku.checkSolved())
                         ChangeGrid.output("Congratulations, you won! \n Press any key to start new game!");
                     break;
                 case 53:
                     ChangeGrid.fillCurrentCell("5");
-                    if (checkSolved())
+                    if (Sudoku.checkSolved())
                         ChangeGrid.output("Congratulations, you won! \n Press any key to start new game!");
                     break;
                 case 54:
                     ChangeGrid.fillCurrentCell("6");
-                    if (checkSolved())
+                    if (Sudoku.checkSolved())
                         ChangeGrid.output("Congratulations, you won! \n Press any key to start new game!");
                     break;
                 case 55:
                     ChangeGrid.fillCurrentCell("7");
-                    if (checkSolved())
+                    if (Sudoku.checkSolved())
                         ChangeGrid.output("Congratulations, you won! \n Press any key to start new game!");
                     break;
                 case 56:
                     ChangeGrid.fillCurrentCell("8");
-                    if (checkSolved())
+                    if (Sudoku.checkSolved())
                         ChangeGrid.output("Congratulations, you won! \n Press any key to start new game!");
                     break;
                 case 57:
                     ChangeGrid.fillCurrentCell("9");
-                    if (checkSolved())
+                    if (Sudoku.checkSolved())
                         ChangeGrid.output("Congratulations, you won! \n Press any key to start new game!");
                     break;
                 case 82:
@@ -173,19 +173,19 @@ $(function () {
                 case 57:
                     switch (controlSwitchRCB) {
                         case 'R':
-                            if (contains(select("row", ChangeGrid.getCurrentRowIndex()), e.which - 48))
+                            if (Sudoku.contains(Sudoku.select("row", ChangeGrid.getCurrentRowIndex()), e.which - 48))
                                 ChangeGrid.output("Yes, row " + (ChangeGrid.getCurrentRowIndex() + 1) + " contains a " + (e.which - 48) + ".");
                             else
                                 ChangeGrid.output("No, row " + (ChangeGrid.getCurrentRowIndex() + 1) + " does not contain a " + (e.which - 48) + ".");
                             break;
                         case 'C':
-                            if (contains(select("col", ChangeGrid.getCurrentColIndex()), e.which - 48))
+                            if (Sudoku.contains(Sudoku.select("col", ChangeGrid.getCurrentColIndex()), e.which - 48))
                                 ChangeGrid.output("Yes, column " + (ChangeGrid.getCurrentColIndex() + 1) + " contains a " + (e.which - 48) + ".");
                             else
                                 ChangeGrid.output("No, column " + (ChangeGrid.getCurrentColIndex() + 1) + " does not contain a " + (e.which - 48) + ".");
                             break;
                         case 'B':
-                            if (contains(select("box", ChangeGrid.getCurrentBoxIndex()), e.which - 48))
+                            if (Sudoku.contains(Sudoku.select("box", ChangeGrid.getCurrentBoxIndex()), e.which - 48))
                                 ChangeGrid.output("Yes, box " + (ChangeGrid.getCurrentBoxIndex() + 1) + " contains a " + (e.which - 48) + ".");
                             else
                                 ChangeGrid.output("No, box " + (ChangeGrid.getCurrentBoxIndex() + 1) + " does not contain a " + (e.which - 48) + ".");
@@ -196,21 +196,21 @@ $(function () {
                 case 82:
                     switch (controlSwitchRCB) {
                         case 'R':
-                            var results = read(select("row", ChangeGrid.getCurrentRowIndex()));
+                            var results = Sudoku.read(Sudoku.select("row", ChangeGrid.getCurrentRowIndex()));
                             var outputString = "Row " + (ChangeGrid.getCurrentRowIndex() + 1) + " contains ";
                             for (var i = 0; i < 9; i++)
                                 outputString += (results[i] == "0" ? "blank" : results[i]) + (i == 8 ? ". " : ", ");
                             ChangeGrid.output(outputString);
                             break;
                         case 'C':
-                            var results = read(select("col", ChangeGrid.getCurrentColIndex()));
+                            var results = Sudoku.read(Sudoku.select("col", ChangeGrid.getCurrentColIndex()));
                             var outputString = "Column " + (ChangeGrid.getCurrentColIndex() + 1) + " contains ";
                             for (var i = 0; i < 9; i++)
                                 outputString += (results[i] == "0" ? "blank" : results[i]) + (i == 8 ? ". " : ", ");
                             ChangeGrid.output(outputString);
                             break;
                         case 'B':
-                            var results = read(select("box", ChangeGrid.getCurrentBoxIndex()));
+                            var results = Sudoku.read(Sudoku.select("box", ChangeGrid.getCurrentBoxIndex()));
                             var outputString = "Box " + (ChangeGrid.getCurrentBoxIndex() + 1) + " contains ";
                             for (var i = 0; i < 9; i++)
                                 outputString += (results[i] == "0" ? "blank" : results[i]) + (i == 8 ? ". " : ", ");
@@ -222,21 +222,21 @@ $(function () {
                 case 77:
                     switch (controlSwitchRCB) {
                         case 'R':
-                            var results = findMissingNumbers(select("row", ChangeGrid.getCurrentRowIndex()))
+                            var results = Sudoku.findMissingNumbers(Sudoku.select("row", ChangeGrid.getCurrentRowIndex()))
                             var outputString = "Row " + (ChangeGrid.getCurrentRowIndex() + 1) + " is missing ";
                             for (var i = 0; i < results.length; i++)
                                 outputString += results[i] + (i == results.length - 1 ? ". " : ", ");
                             ChangeGrid.output(outputString);
                             break;
                         case 'C':
-                            var results = findMissingNumbers(select("col", ChangeGrid.getCurrentColIndex()));
+                            var results = Sudoku.findMissingNumbers(Sudoku.select("col", ChangeGrid.getCurrentColIndex()));
                             var outputString = "Column " + (ChangeGrid.getCurrentColIndex() + 1) + " is missing ";
                             for (var i = 0; i < results.length; i++)
                                 outputString += results[i] + (i == results.length - 1 ? ". " : ", ");
                             ChangeGrid.output(outputString);
                             break;
                         case 'B':
-                            var results = findMissingNumbers(select("box", ChangeGrid.getCurrentBoxIndex()));
+                            var results = Sudoku.findMissingNumbers(Sudoku.select("box", ChangeGrid.getCurrentBoxIndex()));
                             var outputString = "Box " + (ChangeGrid.getCurrentBoxIndex() + 1) + " is missing ";
                             for (var i = 0; i < results.length; i++)
                                 outputString += results[i] + (i == results.length - 1 ? ". " : ", ");
@@ -248,15 +248,15 @@ $(function () {
                 case 84:
                     switch (controlSwitchRCB) {
                         case 'R':
-                            ChangeGrid.output("Best row option is " + (bestRowOptions(1)[0] + 1) + ".");
+                            ChangeGrid.output("Best row option is " + (Sudoku.bestRowOptions(1)[0] + 1) + ".");
                             tCounter++;
                             break;
                         case 'C':
-                            ChangeGrid.output("Best column option is " + (bestColOptions(1)[0] + 1) + ".");
+                            ChangeGrid.output("Best column option is " + (Sudoku.bestColOptions(1)[0] + 1) + ".");
                             tCounter++;
                             break;
                         case 'B':
-                            ChangeGrid.output("Best box option is " + (bestBoxOptions(1)[0] + 1) + ".");
+                            ChangeGrid.output("Best box option is " + (Sudoku.bestBoxOptions(1)[0] + 1) + ".");
                             tCounter++;
                             break;
 

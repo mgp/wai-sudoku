@@ -2,7 +2,7 @@ var TableFill = namespace("AccessibleSudoku.TableFill");
 
 TableFill.fillGrid = function()
             {
-                loadNextBoard();
+                Sudoku.loadNextBoard();
                 gridnum=board;
                 
                 var i=0,j=0;

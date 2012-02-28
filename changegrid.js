@@ -4,21 +4,21 @@ ChangeGrid.fillCurrentCell = function(number)
 {
     var curRowIndex= ChangeGrid.getRowCoordinate(cell);
     var curColIndex = ChangeGrid.getColCoordinate(cell);
-    var isValidCell= canFillPoint(curRowIndex,curColIndex);//bool to get if its a valid cell
+    var isValidCell = Sudoku.canFillPoint(curRowIndex, curColIndex); //bool to get if its a valid cell
     //var isValidCell=1;
 
     var isRightSolution=1;
     if(isValidCell==1)
     {
         //if its not a part of the sudoku actual grid
-        isRightSolution = checkInput(curRowIndex,curColIndex,number);
+        isRightSolution = Sudoku.checkInput(curRowIndex, curColIndex, number);
         if(isRightSolution==1)
         {
             ChangeGrid.output("Filled " + number);
             document.getElementById(cell).innerHTML = number;
 			
             document.getElementById(cell).style.color = '0000EE';
-			updateBoard(curRowIndex,curColIndex,number);
+            Sudoku.updateBoard(curRowIndex, curColIndex, number);
         }
         else
         {
