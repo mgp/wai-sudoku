@@ -1,18 +1,20 @@
-function fillCurrentCell(number)
+var ChangeGrid = namespace("AccessibleSudoku.ChangeGrid");
+
+ChangeGrid.fillCurrentCell = function(number)
 {
-    var curRowIndex=getRowCoordinate(cell);
-    var curColIndex=getColCoordinate(cell);
-    var isValidCell=canFillPoint(curRowIndex,curColIndex);//bool to get if its a valid cell
+    var curRowIndex= ChangeGrid.getRowCoordinate(cell);
+    var curColIndex = ChangeGrid.getColCoordinate(cell);
+    var isValidCell= canFillPoint(curRowIndex,curColIndex);//bool to get if its a valid cell
     //var isValidCell=1;
 
     var isRightSolution=1;
     if(isValidCell==1)
     {
         //if its not a part of the sudoku actual grid
-        isRightSolution=checkInput(curRowIndex,curColIndex,number);
+        isRightSolution = checkInput(curRowIndex,curColIndex,number);
         if(isRightSolution==1)
         {
-            output("Filled "+ number);
+            ChangeGrid.output("Filled " + number);
             document.getElementById(cell).innerHTML = number;
 			
             document.getElementById(cell).style.color = '0000EE';
@@ -20,23 +22,23 @@ function fillCurrentCell(number)
         }
         else
         {
-            output("Wrong Answer!");
+            ChangeGrid.output("Wrong Answer!");
         }
     }
     else if(isValidCell==0)//its overwriting an already written number
     {
-        output("Can't overwrite a grid number") ;
+        ChangeGrid.output("Can't overwrite a grid number");
     }
     
 }
-function getRowCoordinate(cellnumber)
+ChangeGrid.getRowCoordinate = function(cellnumber)
 {
     var row=cellnumber.charAt(0);
     var firstRow='a';
     var curRowIndex=row.charCodeAt(0)-firstRow.charCodeAt(0);
     return curRowIndex;
 }
-function getColCoordinate(cellnumber)
+ChangeGrid.getColCoordinate = function(cellnumber)
 {
     var col=cellnumber.charAt(1);
 
@@ -45,32 +47,33 @@ function getColCoordinate(cellnumber)
 
     return curColIndex;
 }
-function getRowCharacter(number)
+ChangeGrid.getRowCharacter = function(number)
 {
     var firstRow='a';
     var curRowChar=firstRow.charCodeAt(0)+number;
     return String.fromCharCode(curRowChar);
 }
-function getColCharacter(number)
+ChangeGrid.getColCharacter = function(number)
 {
     var firstCol='0';
     var curColChar=number+firstCol.charCodeAt(0)+1;
     return String.fromCharCode(curColChar);
 }
-function getCurrentRowIndex()
+ChangeGrid.getCurrentRowIndex = function()
 {
-    return getRowCoordinate(cell);
+    return ChangeGrid.getRowCoordinate(cell);
 }
-function getCurrentColIndex()
+ChangeGrid.getCurrentColIndex = function()
 {
-    return getColCoordinate(cell);
+    return ChangeGrid.getColCoordinate(cell);
 }
-function output(textoutput)
+ChangeGrid.output = function(textoutput)
 {
     $("#inputbox").val(textoutput);
 }
-function getCurrentBoxIndex()
+ChangeGrid.getCurrentBoxIndex = function()
 {
-    var boxIndex=3*(parseInt(getCurrentRowIndex()/3)) + parseInt(getCurrentColIndex()/3) ;
+    var boxIndex = 3 * (parseInt(ChangeGrid.getCurrentRowIndex() / 3)) + parseInt(ChangeGrid.getCurrentColIndex() / 3);
     return boxIndex;
 }
+

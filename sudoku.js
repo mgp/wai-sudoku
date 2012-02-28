@@ -277,16 +277,6 @@ function findLeastMissingBoxes(){
 	return [boxes,cts];
 }
 
-function bestOptions(n){
-	//inputs: an int n
-	//returns: [the  
-	//used to toggle through the best row/column/box
-	//CURRENTLY NOT USED
-	var options = findBestOptions();
-	//console.log("The best option number ",n, " is",options[0][n-1] , options[1][n-1], "with ", options[2][n-1], "missing");
-	return [options[0][n-1],options[1][n-1],options[2][n-1]];
-}
-
 function getBoard(){
 	//inputs: none
 	//returns: the entire board as an array of points
@@ -298,49 +288,6 @@ function getBoard(){
 		}
 	}
 	return points
-}
-
-function findBestOptions(){
-	//outputs [types,inds,cts], each in order from best to words
-	//types = 'row' / 'col' / 'box'
-	//inds = 0:8
-	//cts = how many missing
-	//CURRENTLY NOT USED
-    var counts = new Array;
-    var i=0;
-    for (i=0;i<board.length;i++){
-        
-        // select points in row/col/box
-        var pointsRow = getRow(i);
-        var pointsCol = getCol(i);
-        var pointsBox = getBox(i);
-        
-        // count the number missing in selection
-        var nMissingRow = countNum(pointsRow,0);
-        var nMissingCol = countNum(pointsCol,0);
-        var nMissingBox = countNum(pointsBox,0);
-     
-        // push these onto the counts
-        counts.push([nMissingRow,'row',i]);
-        counts.push([nMissingCol,'col',i]);
-        counts.push([nMissingBox,'box',i]);
-        
-    }
-    
-    // sort by nMissing
-    counts.sort(cmpKillZeros)
-    
-    var cts   = [];
-    var types = [];
-    var inds  = [];
-    
-    for (i=0;i<counts.length;i++){
-        cts[i]   = counts[i][0];
-        types[i] = counts[i][1];
-        inds[i]  = counts[i][2];
-    }
-
-    return [types,inds,cts];
 }
 
 function bestRowOptions(n){
@@ -384,69 +331,6 @@ function findMissingNumbers(points){
 	return missingNumbers;
 }
 
-function getRows(points){
-	//input: selection
-	//returns: rows the selected points are in, w/o duplicates
-	//NOT CURRENTLY USED
-	isValidArray(points,"getRows");
-	var rows = new Array;
-	for(var i = 0; i < points.length; i++){
-		rows.push(point2Row(points[i]));
-	}
-	rows.sort();
-	var curr=-1;
-	var cleanRows=[];
-	for (var i=0; i<rows.length; i++){
-		if (rows[i]!=curr){
-			cleanRows.push(rows[i]);
-			curr=rows[i];
-		}
-	}
-	return cleanRows;
-}
-
-function getCols(points){
-	//input: selection
-	//returns: Cols the selected points are in, w/o duplicates
-	//NOT CURRENTLY USED
-	isValidArray(points,"getCols");
-	var cols = new Array;
-	for(var j = 0; j < points.length; j++){
-		cols.push(point2Col(points[j]));
-	}
-	cols.sort();
-	var curr=-1;
-	var cleanCols=[];
-	for (var j=0; j<cols.length; j++){
-		if (cols[j]!=curr){
-			cleanCols.push(cols[j]);
-			curr=cols[j];
-		}
-	}
-	return cleanCols;
-}
-
-function getBoxes(points){
-	//input: selection
-	//returns: boxes the selected points are in, w/o duplicates
-	//NOT CURRENTLY USED
-	isValidArray(points,"getBoxes");
-	var boxes = new Array;
-	for(var i = 0; i < points.length; i++){
-		boxes.push(point2Box(points[i]));
-	}
-	boxes.sort();
-	var curr=-1;
-	var cleanBoxes=[];
-	for (var i=0; i<boxes.length; i++){
-		if (boxes[i]!=curr){
-			cleanBoxes.push(boxes[i]);
-			curr=boxes[i];
-		}
-	}
-	return cleanBoxes;
-}
-
 function getValue(point){
 	//input: a point
 	//returns: the sudoku value at the point
@@ -462,46 +346,6 @@ function getValues(points){
 		vals.push(getValue(points[i]));
 	}
 	return vals;
-}
-
-function checkBoardValidity(){
-	//checks if board is in a valid configuration
-	//returns [validity, mistakes]
-	//NOT CURRENTLY USED (we presently just check against the solution board)
-    var valid = 1;
-    var mistakes = [];
-    
-    //cycle through all the points
-    for (var i=0;i<board.length;i++){
-        for (var j=0;j<board.length;j++){
-            
-            // the the row/col/box and value of the point
-            p = new point(i,j);
-            var val = getValue(p);
-            var row = getRow(point2Row(p));
-            var col = getCol(point2Col(p));
-            var box = getBox(point2Box(p));
-            
-            if (val != 0){
-            // set board as invalid and push the point onto the mistakes array if invalid
-            if (countNum(row,val) > 1){
-                valid = 0;
-                mistakes.push(p);
-            }
-            else if (countNum(col,val) > 1){
-                valid = 0;
-                mistakes.push(p);
-            }
-            else if (countNum(box,val) > 1){
-                valid = 0;
-                mistakes.push(p);
-            }
-                
-            } 
-                        
-        }
-    }
-    return valid;
 }
 
 function updateBoard(row, col, number){
@@ -609,31 +453,4 @@ function checkSolved(){
 	//against the true solution
     var missing = countNum(getBoard(),0);
     return (missing==0);
-}
-
-function fillRandom(points){
-	//input: an array of points
-	//returns: the changed point
-	//solves a random point out of the selection
-	//returns false if failed to change point (e.g. if selection is full)
-	//NOT CURRENTLY USED
-    var blanks = find(points,0);
-    var p
-    if (blanks.length>0){
-        var rand = Math.floor(Math.random()*(blanks.length));
-        p = blanks[rand];
-        var correctVal = getCorrectValues([p])[0];
-        updateBoard(p.row, p.col,correctVal);
-        return p;
-        }
-	return 0;
-}
-
-function solve(){
-	//solves the sudoku puzzle
-	//NOT CURRENTLY USED
-    var nMissing = countNum(getBoard(),0);
-    for (var i=0; i<nMissing; i++){
-        fillRandom(getBoard());
-    }
 }
