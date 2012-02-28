@@ -15,7 +15,7 @@ function fillCurrentCell(number)
             output("Filled "+ number);
             document.getElementById(cell).innerHTML = number;
 			
-            document.getElementById(cell).style.color = '1f7b67';
+            document.getElementById(cell).style.color = '0000EE';
 			updateBoard(curRowIndex,curColIndex,number);
         }
         else
