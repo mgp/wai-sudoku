@@ -2,73 +2,71 @@ var MoveCell = namespace("AccessibleSudoku.MoveCell");
 
 var isChrome = /Chrome/.test(navigator.userAgent);
 
-MoveCell.move = function (movt)
-{
-               
-    var row=cell.charAt(0);
-    var col=cell.charAt(1);
+MoveCell.move = function (movt) 
+{        
+    var row = cell.charAt(0);
+    var col = cell.charAt(1);
     var newRownum;
     var newRowChar;
     var newColnum;
     var newColChar;
-    var cellnew="beep";
-    crossedBox=0;
-    if(movt == "up")
+    var cellnew = "beep";
+    crossedBox = 0;
+    if(movt === "up")
     {
-            if(row!='a') //cant go above
-            {
-            newRow=row.charCodeAt(0);
-            newRow=newRow-1;
+        if(row !== 'a') //cant go above
+        {
+            newRow = row.charCodeAt(0);
+            newRow = newRow - 1;
 
-            newRowChar=String.fromCharCode(newRow);
-            cellnew=newRowChar+col;
-            if (parseInt(ChangeGrid.getRowCoordinate(cellnew) / 3) != parseInt(ChangeGrid.getRowCoordinate(cell) / 3))//it crossed a box
+            newRowChar = String.fromCharCode(newRow);
+            cellnew = newRowChar + col;
+            if (parseInt(ChangeGrid.getRowCoordinate(cellnew) / 3) !== parseInt(ChangeGrid.getRowCoordinate(cell) / 3))//it crossed a box
             {
                 crossedBox=1;
             }
-            }
-
+        }
     }
-    else if(movt=="down")
+    else if(movt === "down")
     {
-            if(row!='i') //cant go below
-            {
+        if(row !== 'i') //cant go below
+        {
             newRow = row.charCodeAt(0);
             newRow = newRow + 1;
             newRowChar = String.fromCharCode(newRow);
             cellnew = newRowChar + col;
-            if (parseInt(ChangeGrid.getRowCoordinate(cellnew) / 3) != parseInt(ChangeGrid.getRowCoordinate(cell) / 3))//it crossed a box
+            if (parseInt(ChangeGrid.getRowCoordinate(cellnew) / 3) !== parseInt(ChangeGrid.getRowCoordinate(cell) / 3))//it crossed a box
             {
                 crossedBox = 1;
             }
-            }
+        }
     }
-    else if(movt == "right")
+    else if(movt === "right")
     {
-            if(col != '9')
-            {
+        if(col !== '9')
+        {
             newCol = col.charCodeAt(0);
             newCol = newCol + 1;
             newColChar = String.fromCharCode(newCol);
             cellnew = row + newColChar;
-            if (parseInt(ChangeGrid.getColCoordinate(cellnew) / 3) != parseInt(ChangeGrid.getColCoordinate(cell) / 3))//it crossed a box
+            if (parseInt(ChangeGrid.getColCoordinate(cellnew) / 3) !== parseInt(ChangeGrid.getColCoordinate(cell) / 3))//it crossed a box
             {
                 crossedBox = 1;
             }
-            }
+        }
     }
-    else if(movt == "left")
+    else if(movt === "left")
     {
-        if(col != 1)
+        if(col !== 1)
             {
-            newCol = col.charCodeAt(0);
-            newCol = newCol - 1;
-            newColChar = String.fromCharCode(newCol);
-            cellnew = row + newColChar;
-            if (parseInt(ChangeGrid.getColCoordinate(cellnew) / 3) != parseInt(ChangeGrid.getColCoordinate(cell) / 3))//it crossed a box
-            {
-                crossedBox = 1;
-            }
+                newCol = col.charCodeAt(0);
+                newCol = newCol - 1;
+                newColChar = String.fromCharCode(newCol);
+                cellnew = row + newColChar;
+                if (parseInt(ChangeGrid.getColCoordinate(cellnew) / 3) !== parseInt(ChangeGrid.getColCoordinate(cell) / 3))//it crossed a box
+                {
+                    crossedBox = 1;
+                }
             }
     }
     MoveCell.moveBetweenCells(cell, cellnew);
@@ -76,27 +74,27 @@ MoveCell.move = function (movt)
 }
 
 
-MoveCell.color = function (cell, colr) {
+MoveCell.color = function (cell, colr){
     var cellNode = document.getElementById(cell);
     var num = cellNode.innerHTML;
-    if (colr == 0) {
+    if (colr === 0) {
         $(cellNode).removeClass('highlighted');
         if (isChrome) {
             $(cellNode).removeClass('chrome');
         }
                     
-    } else if (colr == 1) {
+    } else if (colr === 1) {
         $(cellNode).addClass('highlighted');
         if (isChrome) {
             $(cellNode).addClass('chrome');
         }
 
         var outstring = "";
-        if (crossedBox == 1) {
+        if (crossedBox === 1) {
             outstring = "Line ";
         }
 
-        if (num == "&nbsp;") {
+        if (num === "&nbsp;") {
             ChangeGrid.output(outstring + "blank");
         } else {
             ChangeGrid.output(outstring + num);
@@ -107,7 +105,7 @@ MoveCell.color = function (cell, colr) {
 MoveCell.moveBetweenCells = function (cellold, cellnew)
 {
 
-    if (cellnew == "beep")
+    if (cellnew === "beep")
     {
         ChangeGrid.output("Beep");
     }
@@ -115,8 +113,7 @@ MoveCell.moveBetweenCells = function (cellold, cellnew)
     {
         MoveCell.color(cellold, 0);
         MoveCell.color(cellnew, 1);
-        cell=cellnew;
-
+        cell = cellnew;
     }
 
 }
