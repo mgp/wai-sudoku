@@ -57,7 +57,7 @@ MoveCell.move = function (movt)
     }
     else if(movt === "left")
     {
-        if(col !== 1)
+        if(col !== '1')
             {
                 newCol = col.charCodeAt(0);
                 newCol = newCol - 1;
