@@ -2,7 +2,7 @@
 
 $(function () {
 
-    fillGrid();
+    TableFill.fillGrid();
     ChangeGrid.output("Welcome to Accessible Sudoku! Press h for help or begin playing");
 
     var controlSwitch = false;
@@ -12,7 +12,7 @@ $(function () {
 
     $("#inputbox").keydown(function (e) {
         if (checkSolved()) {
-            fillGrid();
+            TableFill.fillGrid();
             return true;
         }
 

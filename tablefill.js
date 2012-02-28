@@ -1,4 +1,6 @@
-function fillGrid()
+var TableFill = namespace("AccessibleSudoku.TableFill");
+
+TableFill.fillGrid = function()
             {
                 loadNextBoard();
                 gridnum=board;
