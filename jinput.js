@@ -164,21 +164,21 @@
 						var results = read(select("row", getCurrentRowIndex()));
 						var outputString = "Row " + (getCurrentRowIndex() + 1) + " contains ";
 						for(var i = 0; i<9; i++)
-							outputString += (results[i]=="0"?"blank":results[i]) + (i==8?" ":", ");
+							outputString += (results[i]=="0"?"blank":results[i]) + (i==8?". ":", ");
 						output(outputString);
 						break;   
 					case 'C':
 						var results = read(select("col", getCurrentColIndex()));
 						var outputString = "Column " + (getCurrentColIndex() + 1) + " contains ";
 						for(var i = 0; i<9; i++)
-							outputString += (results[i]=="0"?"blank":results[i]) + (i==8?" ":", ");
+							outputString += (results[i]=="0"?"blank":results[i]) + (i==8?". ":", ");
 						output(outputString);
 						break;   
 					case 'B':
 						var results = read(select("box", getCurrentBoxIndex()));
 						var outputString = "Box " + (getCurrentBoxIndex() + 1) + " contains ";
 						for(var i = 0; i<9; i++)
-							outputString += (results[i]=="0"?"blank":results[i]) + (i==8?" ":", ");
+							outputString += (results[i]=="0"?"blank":results[i]) + (i==8?". ":", ");
 						output(outputString);
 						break;
 				}
@@ -190,21 +190,21 @@
 						var results = findMissingNumbers(select("row", getCurrentRowIndex()))
 						var outputString = "Row " + (getCurrentRowIndex() + 1) + " is missing ";
 						for(var i = 0; i<results.length; i++)
-							outputString += results[i] + " ";
+							outputString += results[i] + (i==results.length-1?". ":", ");
 						output(outputString);
 						break;   
 					case 'C':
 						var results = findMissingNumbers(select("col", getCurrentColIndex()));
 						var outputString = "Column " + (getCurrentColIndex() + 1) + " is missing ";
 						for(var i = 0; i<results.length; i++)
-							outputString += results[i] + " ";
+							outputString += results[i] + (i==results.length-1?". ":", ");
 						output(outputString);
 						break;   
 					case 'B':
 						var results = findMissingNumbers(select("box", getCurrentBoxIndex()));
 						var outputString = "Box " + (getCurrentBoxIndex() + 1) + " is missing ";
 						for(var i = 0; i<results.length; i++)
-							outputString += results[i] + " ";
+							outputString += results[i] + (i==results.length-1?". ":", ");
 						output(outputString);
 						break;
 				}
