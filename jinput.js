@@ -164,21 +164,21 @@
 						var results = read(select("row", getCurrentRowIndex()));
 						var outputString = "Row " + (getCurrentRowIndex() + 1) + " contains ";
 						for(var i = 0; i<9; i++)
-							outputString += results[i] + " ";
+							outputString += (results[i]=="0"?"blank":results[i]) + (i==8?" ":", ");
 						output(outputString);
 						break;   
 					case 'C':
 						var results = read(select("col", getCurrentColIndex()));
 						var outputString = "Column " + (getCurrentColIndex() + 1) + " contains ";
 						for(var i = 0; i<9; i++)
-							outputString += results[i] + " ";
+							outputString += (results[i]=="0"?"blank":results[i]) + (i==8?" ":", ");
 						output(outputString);
 						break;   
 					case 'B':
 						var results = read(select("box", getCurrentBoxIndex()));
 						var outputString = "Box " + (getCurrentBoxIndex() + 1) + " contains ";
 						for(var i = 0; i<9; i++)
-							outputString += results[i] + " "
+							outputString += (results[i]=="0"?"blank":results[i]) + (i==8?" ":", ");
 						output(outputString);
 						break;
 				}
